@@ -1,0 +1,42 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" xmlns:twinnyEditor="Twinny.Editor" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.twinny.openxr/Editor/SetupGuide/Resources/CreateScenePanelStyles.uss?fileID=7433441132597879392&amp;guid=3f9b9ed4e5da5ed44acdacdcbec50db9&amp;type=3#CreateScenePanelStyles" />
+    <engine:VisualElement picking-mode="Ignore" class="scene-panel">
+        <engine:Label text="Create New Symbol" name="HeaderLabel" class="header-label">
+            <engine:Button text="X" name="CloseButton" class="header-button close-button" />
+        </engine:Label>
+        <engine:VisualElement picking-mode="Ignore" enabled="true" name="VisualElement" style="padding-top: 8px; padding-right: 8px; padding-bottom: 0; padding-left: 8px; flex-grow: 1; align-self: stretch; flex-shrink: 0;">
+            <engine:TextField label="Scene Name:" placeholder-text="&lt;Insert a name for the scene&gt;" name="SceneNameField" style="margin-bottom: 8px; display: none;" />
+            <engine:Label text="Select Scene Template:" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-center;" />
+            <engine:VisualElement picking-mode="Ignore" name="Templates" style="flex-direction: row; flex-grow: 1; justify-content: center; flex-wrap: wrap; align-self: stretch; align-items: flex-start;">
+                <engine:VisualElement name="SingleplayerTemplate" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/SinglePlayer&apos;);" />
+                    <engine:Label text="Singleplayer Platform Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="MultiplayerTemplate" enabled="false" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/MultiPlayer&apos;);" />
+                    <engine:Label text="Multiplayer Platform Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="StartSceneTemplate" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/Menu&apos;);" />
+                    <engine:Label text="Start Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="MockupTemplate" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/Mockup&apos;);" />
+                    <engine:Label text="Mockup Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="LinearTemplate" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/Linear&apos;);" />
+                    <engine:Label text="Linear Experience Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="InteractiveTemplate" class="template">
+                    <Concept.UI.AspectElement name="Thumbanil" style="min-width: 192px; min-height: 108px; background-image: resource(&apos;Sprites/Experience&apos;);" />
+                    <engine:Label text="Interactive Experience Scene" style="flex-direction: column; align-self: stretch; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 4px; -unity-text-align: upper-center; -unity-font-style: normal; position: relative; font-size: 12px; white-space: normal; text-overflow: ellipsis; flex-wrap: nowrap; flex-grow: 1;" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="VisualElement" style="flex-grow: 0; align-items: flex-end; padding-bottom: 4px; padding-right: 8px; padding-left: 8px; padding-top: 4px; flex-direction: row-reverse; display: flex; margin-bottom: 4px; flex-shrink: 0;">
+            <engine:Button text="Cancel" name="CancelButton" class="button" style="padding-top: 4px; padding-left: 12px; padding-right: 12px; padding-bottom: 4px; -unity-font-style: bold; margin-left: 4px; background-color: rgb(35, 36, 38);" />
+            <engine:Button text="Create" enabled="false" name="SaveButton" class="button" style="padding-top: 4px; padding-left: 12px; padding-right: 12px; padding-bottom: 4px; -unity-font-style: bold; margin-left: 4px; background-color: rgb(35, 36, 38);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,0 +1,23 @@
+{
+    "name": "Twinny.OpenXR.Editor",
+    "rootNamespace": "Twinny.Editor",
+    "references": [
+        "GUID:0a0c24e570abd5a44b27d2ed6ef85b04",
+        "GUID:15a8c6634ed994d41bf088e7aa8948ca",
+        "GUID:e5b236249dae87640a12b6bc9898605b",
+        "GUID:b44bf009c01c58c408b10db6419b7625",
+        "GUID:f64c9ebcd7899c3448a08dc9f9ddbe30",
+        "GUID:d2761a0af0f567748a72629d4bb18a26",
+        "GUID:7305c54a43f3814439df347c7519653e",
+        "GUID:63fdb6ab8d7290940ab15d57b343e4f0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

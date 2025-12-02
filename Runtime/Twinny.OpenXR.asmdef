@@ -1,0 +1,17 @@
+{
+    "name": "Twinny.OpenXR",
+    "rootNamespace": "Twinny.XR",
+    "references": [
+        "GUID:5dce1e5efc474ce4791e7ab351a3ddb4",
+        "GUID:0a0c24e570abd5a44b27d2ed6ef85b04"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

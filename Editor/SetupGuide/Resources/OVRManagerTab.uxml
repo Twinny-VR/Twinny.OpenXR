@@ -1,0 +1,170 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Twinny.Editor.AdvicePanel text="The current project doesn&apos;t have a RuntimeConfig file defined!" name="AdvicePanel" style="display: none;" />
+    <ui:VisualElement name="ProjectPanel" style="flex-grow: 1; display: flex;">
+        <Concept.UI.TabNavigation tab-buttons="General,Build Settings,Security,Experimental" name="TabNavigation" style="align-self: flex-end; flex-shrink: 0;" />
+        <ui:ScrollView style="height: 100%; margin-top: 4px;">
+            <ui:VisualElement name="GeneralTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: flex;">
+                <ui:Toggle label="Focus Aware (Required)" name="FocusAware" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="focusAware" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:EnumField label="Hand Tracking Support" value="Center" type="OVRProjectConfig+HandTrackingSupport, Oculus.VR.Editor" name="HandTrackingSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="handTrackingSupport" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Hand Tracking Frequency" type="OVRProjectConfig+HandTrackingFrequency, Oculus.VR.Editor" name="HandTrackingFrequency">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="handTrackingFrequency" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Hand Tracking Version" type="OVRProjectConfig+HandTrackingVersion, Oculus.VR.Editor" name="HandTrackingVersion">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="handTrackingVersion" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Render Model Support" value="Center" type="OVRProjectConfig+RenderModelSupport, Oculus.VR.Editor" name="RenderModelSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="renderModelSupport" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:Toggle label="Requires System Keyboard" name="RequiresSystemKeyboard" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="requiresSystemKeyboard" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:EnumField label="Tracked Keyboard Support" value="Center" type="OVRProjectConfig+TrackedKeyboardSupport, Oculus.VR.Editor" name="TrackedKeyboardSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="trackedKeyboardSupport" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Virtual Keyboard Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="VirtualKeyboardSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="virtualKeyboardSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Anchor Support" value="Center" type="OVRProjectConfig+AnchorSupport, Oculus.VR.Editor" name="AnchorSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="anchorSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Shared Anchor Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="SharedAnchorSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="sharedAnchorSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Colocation Session Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="ColocationSessionSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="colocationSessionSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Scene Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="SceneSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="sceneSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Passthrough Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="PassthroughSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="_insightPassthroughSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Boundary Visibility Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="BoundaryVisibilitySupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="boundaryVisibilitySupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Body Tracking Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="BodyTrackingSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="bodyTrackingSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Face Tracking Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="FaceTrackingSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="faceTrackingSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:EnumField label="Eye Tracking Support" value="Center" type="OVRProjectConfig+FeatureSupport, Oculus.VR.Editor" name="EyeTrackingSupport">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="eyeTrackingSupport" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:Foldout text="Screens" value="false">
+                    <uie:ObjectField label="System Splash Screen" type="UnityEngine.Texture2D, UnityEngine.CoreModule" name="SystemSplashScreen">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="systemSplashScreen" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                        </Bindings>
+                    </uie:ObjectField>
+                    <ui:EnumField label="System Splash Screen Type" value="Center" type="OVRProjectConfig+SystemSplashScreenType, Oculus.VR.Editor" name="SystemSplashScreenType">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="systemSplashScreenType" />
+                        </Bindings>
+                    </ui:EnumField>
+                    <ui:EnumField label="System Loading Screen Background" value="Center" type="OVRProjectConfig+SystemLoadingScreenBackground, Oculus.VR.Editor" name="SystemLoadingScreenBackground">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="_systemLoadingScreenBackground" />
+                        </Bindings>
+                    </ui:EnumField>
+                </ui:Foldout>
+                <ui:Toggle label="Allow Optional 3Dof Head Tracking" name="AllowOptional3DofHeadTracking" style="align-self: flex-start; flex-direction: row-reverse;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="allowOptional3DofHeadTracking" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:EnumField label="Processor Favor" value="Center" type="OVRProjectConfig+ProcessorFavor, Oculus.VR.Editor" name="ProcessorFavor">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="_processorFavor" />
+                    </Bindings>
+                </ui:EnumField>
+            </ui:VisualElement>
+            <ui:VisualElement name="BuildSettingsTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: flex;">
+                <ui:Toggle label="Skip Unneeded Shaders" name="SkipUnneededShaders" style="align-self: flex-start; flex-direction: row-reverse;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="skipUnneededShaders" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:Toggle label="IL2CPP Link Time Optimization" name="EnableIL2CPPLTO" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="enableIL2CPPLTO" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:Foldout text="Android Manifest Settings">
+                    <ui:Toggle label="Remove Existing Gradle AndroidManifest" name="RemoveGradleManifest" style="align-self: flex-start; flex-direction: row-reverse;">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="removeGradleManifest" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" />
+                        </Bindings>
+                    </ui:Toggle>
+                    <ui:Toggle label="Horizon OS SDK Tag" name="HorizonOsSdkEnabled" style="flex-direction: row-reverse; align-self: flex-start;">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="horizonOsSdkEnabled" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Toggle>
+                </ui:Foldout>
+            </ui:VisualElement>
+            <ui:VisualElement name="SecurityTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: flex;">
+                <ui:Toggle label="Disable Backups" name="DisableBackups" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="disableBackups" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:Toggle label="Enable NSC Configuration" name="EnableNSCConfig" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="enableNSCConfig" />
+                    </Bindings>
+                </ui:Toggle>
+                <ui:TextField label="Custom Security XML Path" placeholder-text="filler text" name="SecurityXmlPath">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="securityXmlPath" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:TextField>
+            </ui:VisualElement>
+            <ui:VisualElement name="ExperimentalTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: flex;">
+                <ui:Toggle label="Experimental Features Enabled" name="ExperimentalFeaturesEnabled" style="flex-direction: row-reverse; align-self: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-type="OVRProjectConfig, Oculus.VR.Editor" binding-mode="TwoWay" data-source-path="experimentalFeaturesEnabled" />
+                    </Bindings>
+                </ui:Toggle>
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

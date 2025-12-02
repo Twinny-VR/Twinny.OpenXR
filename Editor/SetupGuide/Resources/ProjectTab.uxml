@@ -1,0 +1,69 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Twinny.Editor.AdvicePanel text="The current project doesn&apos;t have a RuntimeConfig file defined!" name="AdvicePanel" />
+    <ui:VisualElement name="ProjectPanel" style="flex-grow: 1; display: flex;">
+        <Concept.UI.TabNavigation tab-buttons="General,OpenXR" style="align-self: flex-end; flex-shrink: 0;" />
+        <ui:ScrollView style="height: 100%; margin-top: 4px;">
+            <ui:VisualElement name="GeneralTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: none;">
+                <ui:EnumField label="Enum" value="Center" type="Concept.SmartTools.AmbientType, com.conceptfactory.smarttools" style="margin-bottom: 4px;">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="ambientType" data-source-type="Twinny.Core.TwinnyRuntime, Twinny.Core" binding-mode="TwoWay" />
+                    </Bindings>
+                </ui:EnumField>
+                <ui:VisualElement style="flex-direction: row; justify-content: flex-end; margin-bottom: 4px;">
+                    <ui:FloatField label="Fade Transition Duration" style="min-width: 256px;">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="fadeTime" data-source-type="Twinny.Core.TwinnyRuntime, Twinny.Core" binding-mode="TwoWay" />
+                        </Bindings>
+                    </ui:FloatField>
+                    <ui:Label text="s" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center;" />
+                </ui:VisualElement>
+                <ui:Foldout text="Optmization" name="Foldout" style="margin-bottom: 4px;">
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-around;">
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:Toggle value="false" language-direction="Inherit" name="ForceFRToggle">
+                                <Bindings>
+                                    <ui:DataBinding property="value" data-source-path="forceFrameRate" data-source-type="Twinny.Core.TwinnyRuntime, Twinny.Core" binding-mode="TwoWay" />
+                                </Bindings>
+                            </ui:Toggle>
+                            <ui:Label text="Force Frame Rate" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 2px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="TargetFRPanel" style="flex-direction: row;">
+                            <ui:FloatField label="Target Frame Rate" style="min-width: 256px;">
+                                <Bindings>
+                                    <ui:DataBinding property="value" data-source-path="targetFrameRate" data-source-type="Twinny.Core.TwinnyRuntime, Twinny.Core" binding-mode="TwoWay" />
+                                </Bindings>
+                            </ui:FloatField>
+                            <ui:Label text="fps" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:Foldout>
+                <ui:Foldout text="WebHook" value="false">
+                    <ui:TextField label="&#x9;Hook Url" placeholder-text="&lt;Enter Discord WebHook URL&gt;">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="webHookUrl" data-source-type="Twinny.Core.TwinnyRuntime, Twinny.Core" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:TextField>
+                </ui:Foldout>
+            </ui:VisualElement>
+            <ui:VisualElement name="OpenXRTab" style="flex-grow: 1; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); border-top-width: 1.5px; border-right-width: 1.5px; border-bottom-width: 1.5px; border-left-width: 1.5px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px; padding-left: 8px; display: flex;">
+                <ui:Foldout text="Anchoring" name="Foldout" style="margin-bottom: 4px;">
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-bottom: 4px; margin-top: 4px;">
+                        <ui:Toggle language-direction="Inherit" name="AllowClickSafeAreaOutside">
+                            <Bindings>
+                                <ui:DataBinding property="value" data-source-path="allowClickSafeAreaOutside" data-source-type="Twinny.XR.TwinnyXRRuntime, Twinny.OpenXR" binding-mode="TwoWay" />
+                            </Bindings>
+                        </ui:Toggle>
+                        <ui:Label text="Allow Click SafeArea Outside" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 2px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-self: center;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-self: flex-start; min-width: 380px; margin-bottom: 4px;">
+                        <ui:Vector2Field label="SafeArea Size" style="align-self: stretch; flex-grow: 1;">
+                            <Bindings>
+                                <ui:DataBinding property="value" data-source-path="safeAreaSize" data-source-type="Twinny.XR.TwinnyXRRuntime, Twinny.OpenXR" binding-mode="TwoWay" />
+                            </Bindings>
+                        </ui:Vector2Field>
+                    </ui:VisualElement>
+                </ui:Foldout>
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>
