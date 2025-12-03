@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Twinny.Editor.AdvicePanel text="The current project doesn&apos;t have a RuntimeConfig file defined!" name="AdvicePanel" />
+	<Concept.UI.AdvicePanel text="The current project doesn&apos;t have a RuntimeConfig file defined!" name="AdvicePanel" />
     <ui:VisualElement name="ProjectPanel" style="flex-grow: 1; display: flex;">
         <Concept.UI.TabNavigation tab-buttons="General,OpenXR" style="align-self: flex-end; flex-shrink: 0;" />
         <ui:ScrollView style="height: 100%; margin-top: 4px;">

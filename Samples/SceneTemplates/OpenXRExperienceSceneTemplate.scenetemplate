@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: OpenXRExperienceSceneTemplate
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SceneTemplate.SceneTemplateAsset
+  templateScene: {fileID: 102900000, guid: f06e86c4469344944a3941d7391cfc92, type: 3}
+  templateName: Tour Scene (OpenXR)
+  description: A scene that work with Twinny Engine OpenXR Module
+  preview: {fileID: 2800000, guid: 94d720b4bf013c14d97f8cc70d39a85f, type: 3}
+  dependencies: []
+  templatePipeline: {fileID: 11500000, guid: a3b484164c43c744dbb02dd84aca9593, type: 3}
+  badge: {fileID: 2800000, guid: 6e967a6845bfd6d438f4db63a9e2936c, type: 3}
+  addToDefaults: 1
