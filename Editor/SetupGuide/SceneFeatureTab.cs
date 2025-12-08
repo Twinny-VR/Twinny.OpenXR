@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Concept.UI;
 using Twinny.XR;
 using UnityEditor.SceneManagement;
@@ -80,3 +81,4 @@ namespace Twinny.Editor
 
     }
 }
+#endif
