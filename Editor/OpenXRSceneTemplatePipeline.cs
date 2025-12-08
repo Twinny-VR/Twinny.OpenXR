@@ -14,6 +14,7 @@ public class OpenXRSceneTemplatePipeline : ISceneTemplatePipeline
     public virtual bool IsValidTemplateForInstantiation(SceneTemplateAsset sceneTemplateAsset)
     {
         return true;
+        
     }
 
     public virtual void BeforeTemplateInstantiation(SceneTemplateAsset sceneTemplateAsset, bool isAdditive, string sceneName)
