@@ -1,4 +1,5 @@
 using Concept.Helpers;
+using Twinny.Core;
 using UnityEngine;
 using static Twinny.Core.GameMode;
 
@@ -11,17 +12,13 @@ public class TwinnyXRManager: MonoBehaviour
 
         private void Start()
         {
-            InitializeGameMode();
+            Initialize();
         }
 
-        public void InitializeGameMode()
+        public void Initialize()
         {
-#if FUSION2
-//TODO Check if we are in multiplayer session
-            ChangeState(new TwinnyXRMultiplayer());
-            return;
-#endif
-            ChangeState(new TwinnyXRSingleplayer(this));
+            StateMachine.ChangeState(new IdleState(this));
+
         }
 
 

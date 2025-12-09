@@ -6,11 +6,7 @@ namespace Twinny.XR
     public class TwinnyXRSingleplayer : IGameMode
     {
         private TwinnyXRManager m_manager;
-        public TwinnyXRSingleplayer(TwinnyXRManager managerOwner)
-        {
-            m_manager = managerOwner;
-        }
-
+        public TwinnyXRSingleplayer(TwinnyXRManager managerOwner) => m_manager = managerOwner;
 
         public void ChangeScene(string sceneName)
         {
