@@ -1,43 +1,46 @@
+using System;
+using System.Threading.Tasks;
 using Twinny.Core;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Twinny.XR
 {
     public class TwinnyXRMultiplayer : IGameMode
     {
-        public void ChangeScene(string sceneName)
+        public Task<Scene> ChangeScene(int buildIndex, Action<float> onSceneLoading = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void ChangeScene(int sceneBuildIndex)
+        public Task<Scene> ChangeScene(string sceneName, Action<float> onSceneLoading = null)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void NavigateTo(int landMarkIndex)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void StartExperience()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

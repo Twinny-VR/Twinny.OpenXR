@@ -3,7 +3,10 @@
     "rootNamespace": "Twinny.XR",
     "references": [
         "GUID:5dce1e5efc474ce4791e7ab351a3ddb4",
-        "GUID:0a0c24e570abd5a44b27d2ed6ef85b04"
+        "GUID:0a0c24e570abd5a44b27d2ed6ef85b04",
+        "GUID:d0574574baafe9d4aa78d8df4a5e3e5e",
+        "GUID:556b773d6a305d4468ac5cfc13ebbf2f",
+        "GUID:f64c9ebcd7899c3448a08dc9f9ddbe30"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,5 @@
 using Twinny.Core;
 using UnityEngine;
-using static Twinny.Core.GameMode;
 
 namespace Twinny.XR
 {
@@ -33,7 +32,7 @@ namespace Twinny.XR
             ChangeState(new TwinnyXRMultiplayer());
             return;
 #endif
-            ChangeState(new TwinnyXRSingleplayer(m_manager));
+            GameMode.ChangeState(new TwinnyXRSingleplayer(m_manager));
         }
     }
 }
