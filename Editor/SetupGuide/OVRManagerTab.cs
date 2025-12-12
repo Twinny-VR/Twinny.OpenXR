@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Concept.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,3 +35,4 @@ namespace Twinny.Editor
 
     }
 }
+#endif

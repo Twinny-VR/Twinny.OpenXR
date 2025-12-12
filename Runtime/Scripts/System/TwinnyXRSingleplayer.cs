@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Concept.Core;
 using Twinny.Core;
@@ -32,12 +33,9 @@ namespace Twinny.XR
         }
 
         public async Task<Scene> ChangeScene(int buildIndex, Action<float> onSceneLoading = null) {
-            Scene scene = SceneManager.GetSceneByBuildIndex(buildIndex);
-            if (!scene.IsValid()) {
-                Debug.LogError($"[TwinnyXRSingleplayer] Invalid '{buildIndex}' scene build index.");
-                return default;
-            }
-            return await ChangeScene(scene.name,onSceneLoading);
+            
+            string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex)); 
+            return await ChangeScene(sceneName, onSceneLoading);
         } 
         public async Task<Scene> ChangeScene(string sceneName, Action<float> onSceneLoading = null)
         {

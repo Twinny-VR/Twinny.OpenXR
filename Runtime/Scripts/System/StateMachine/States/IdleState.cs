@@ -21,7 +21,6 @@ namespace Twinny.XR
 
         public void Update()
         {
-            throw new System.NotImplementedException();
         }
 
 
