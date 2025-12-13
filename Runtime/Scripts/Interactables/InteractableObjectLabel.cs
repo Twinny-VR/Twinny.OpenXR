@@ -4,6 +4,9 @@ using Oculus.Interaction.UnityCanvas;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Twinny.XR.Interactables
+{
+
     /// <summary>
     /// Label use to tag the possible interaction in each object. It appears when the user faces the object and disappears if the object is
     /// not being faced directly or an interaction was triggered. The default material makes sure the labels appear in front of everything,
@@ -298,4 +301,4 @@ using UnityEngine;
             _quadRenderer.SetPropertyBlock(_block);
         }
     }
-
+}

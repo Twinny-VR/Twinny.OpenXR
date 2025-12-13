@@ -1,3 +1,4 @@
+#if FUSION2
 using System;
 using System.Threading.Tasks;
 using Twinny.Core;
@@ -8,12 +9,12 @@ namespace Twinny.XR
 {
     public class TwinnyXRMultiplayer : IGameMode
     {
-        public Task<Scene> ChangeScene(int buildIndex, Action<float> onSceneLoading = null)
+        public Task<Scene> ChangeScene(int buildIndex, int landMarkIndex = -1, Action<float> onSceneLoading = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Scene> ChangeScene(string sceneName, Action<float> onSceneLoading = null)
+        public Task<Scene> ChangeScene(string sceneName, int landMarkIndex = -1, Action<float> onSceneLoading = null)
         {
             throw new NotImplementedException();
         }
@@ -33,7 +34,12 @@ namespace Twinny.XR
             throw new NotImplementedException();
         }
 
-        public void StartExperience()
+        public void RestartExperience(string sceneName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartExperience(string sceneName)
         {
             throw new NotImplementedException();
         }
@@ -44,3 +50,4 @@ namespace Twinny.XR
         }
     }
 }
+#endif

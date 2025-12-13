@@ -1,14 +1,15 @@
-#if OBSOLETE
+using Twinny.Core;
+using Twinny.XR.Anchoring;
 using UnityEngine;
 
 namespace Twinny.XR
 {
-    public interface ITwinnyXRCallbacks 
+    public interface ITwinnyXRCallbacks : ICallbacks
     {
-        void OnStartExperienceAction();
-        void OnChangeSceneAction(string sceneName);
-        void OnChangeSceneAction(int sceneBuildIndex);
-        void OnNavigateAction(int landMarkIndex);
+        void OnAnchorStateChanged(StateAnchorManager state);
+        void OnSetPassthrough(bool status);
+
+        void OnStartInteract(GameObject gameObject);
+        void OnStopInteract(GameObject gameObject);
     }
 }
-#endif

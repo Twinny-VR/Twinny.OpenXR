@@ -1,4 +1,3 @@
-#if false
 using Meta.XR.BuildingBlocks;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using Meta.XR.MultiplayerBlocks.Shared;
 using Twinny.XR;
 using Concept.Helpers;
 using Twinny.Core;
+using Concept.Core;
 
 namespace Twinny.XR.Anchoring
 {
@@ -47,8 +47,6 @@ namespace Twinny.XR.Anchoring
 
         [SerializeField] private bool _usePinchToAnchor = false;
 
-        public delegate void onAnchorStateChanged(StateAnchorManager state);
-        public static onAnchorStateChanged OnAnchorStateChanged;
 
         [SerializeField]
         private Component _alignCameraToAnchor;
@@ -61,8 +59,8 @@ namespace Twinny.XR.Anchoring
         [SerializeField]
         private GameObject _colocation;
 
-        [Tooltip("Width/Height")]
-        [SerializeField] private Vector2 _safeAreaSize;
+        //[Tooltip("Width/Height")]
+        private Vector2 _safeAreaSize;
 
         [SerializeField]
         private StateAnchorManager _stateAnchorManager = StateAnchorManager.DISABLED;
@@ -72,7 +70,7 @@ namespace Twinny.XR.Anchoring
             set
             {
 
-                OnAnchorStateChanged?.Invoke(value);
+                CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnAnchorStateChanged(value));
 
                 _stateAnchorManager = value;
 
@@ -133,7 +131,6 @@ namespace Twinny.XR.Anchoring
         {
             base.Awake();
             _transform = transform;
-            NetworkRunnerHandler.OnLoadSceneFeature += AnchorScene; //Anchor always when a new SceneFeature has load
         }
         // Start is called before the first frame update
 
@@ -147,8 +144,8 @@ namespace Twinny.XR.Anchoring
             _spatialAnchorCore.OnAnchorCreateCompleted.AddListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.AddListener(OnAnchorEraseCompleted);
             //Set callbacks delegates
-            // GestureMonitor.Instance.OnPinchLeft += OnPinchLeft;
-            // GestureMonitor.Instance.OnPinchRight += OnPinchRight;
+             GestureMonitor.Instance.OnPinchLeft += OnPinchLeft;
+             GestureMonitor.Instance.OnPinchRight += OnPinchRight;
 
             _spatialAnchorLoader.LoadAnchorsFromDefaultLocalStorage();
 
@@ -173,8 +170,7 @@ namespace Twinny.XR.Anchoring
             //Unset Delegates
             GestureMonitor.Instance.OnPinchLeft -= OnPinchLeft;
             GestureMonitor.Instance.OnPinchRight -= OnPinchRight;
-            NetworkRunnerHandler.OnLoadSceneFeature -= AnchorScene;
-            //Unset listeners
+           //Unset listeners
             _spatialAnchorCore.OnAnchorsLoadCompleted.RemoveListener(OnAnchorsLoadCompleted);
             _spatialAnchorCore.OnAnchorCreateCompleted.RemoveListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.RemoveListener(OnAnchorEraseCompleted);
@@ -196,6 +192,10 @@ namespace Twinny.XR.Anchoring
             if (Instance._state == StateAnchorManager.DISABLED || Instance._state == StateAnchorManager.ANCHORED)
             {
                 Instance._state = StateAnchorManager.ANCHORING;
+            } else
+                if(Instance._state == StateAnchorManager.ANCHORING)
+            {
+                CreateAnchor();
             }
 
             //            Instance._state = (Instance._state == StateAnchorManager.DISABLED) ? StateAnchorManager.ANCHORING : StateAnchorManager.DISABLED;
@@ -212,19 +212,6 @@ namespace Twinny.XR.Anchoring
             Vector3 desiredPosition = Instance._transform.position;
             desiredPosition.y = 0;
             Instance._spatialAnchorSpawner.SpawnSpatialAnchor(desiredPosition, Instance._transform.rotation);
-        }
-
-
-        public static void AnchorScene()//TODO Swith to platform
-        {
-            SceneFeatureXR sceneFeature = SceneFeature.Instance as SceneFeatureXR;
-            if (sceneFeature == null) return;
-
-            sceneFeature.transform.position = AnchorManager.Instance.transform.position;
-            sceneFeature.transform.rotation = AnchorManager.Instance.transform.rotation;
-#if !UNITY_EDITOR
-             sceneFeature.gameObject.AddComponent<OVRSpatialAnchor>();
-#endif
         }
 
         public async static void Recolocation()
@@ -248,6 +235,7 @@ namespace Twinny.XR.Anchoring
 
         public static void SpawnColocation()
         {
+#if FUSION2
             if (GameMode.currentMode is TwinnyXRMultiplayer)
             {
                 if (Instance._colocation == null)
@@ -264,6 +252,7 @@ namespace Twinny.XR.Anchoring
 
                 Instance.StartCoroutine(Instance.GetAlignCameraToAnchorCoroutine());
             }
+#endif
         }
 
         private void RemoveColocation()
@@ -309,9 +298,9 @@ namespace Twinny.XR.Anchoring
                 _stateAnchorManager = StateAnchorManager.DISABLED;
                 return;
             }
-            Debug.LogWarning($"[{nameof(AnchorManager)}] Anchors loaded successfully!");
-
             OVRSpatialAnchor anchor = loadedAnchors[0];
+            Debug.LogWarning($"[{nameof(AnchorManager)}] Anchors loaded successfully! ({anchor.transform.position})");
+
 
 
             PlaceSafeArea(anchor);
@@ -438,7 +427,7 @@ namespace Twinny.XR.Anchoring
         }
 
 
-        #endregion
+#endregion
         #region Coroutines
 
         IEnumerator GetAlignCameraToAnchorCoroutine()
@@ -477,4 +466,3 @@ namespace Twinny.XR.Anchoring
     }
 
 }
-#endif

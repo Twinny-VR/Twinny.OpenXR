@@ -16,7 +16,63 @@ MonoBehaviour:
   templateName: Mockup Scene (OpenXR)
   description: A scene that work with Twinny Engine OpenXR Module
   preview: {fileID: 2800000, guid: 9c9676668eef60e4faf3505431e91820, type: 3}
-  dependencies: []
+  dependencies:
+  - dependency: {fileID: 8300000, guid: 19ca98216ac18cc41bbde71ff7f10147, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 8300000, guid: a9cd4298ed6249a4aa775ac1eaa4269e, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 9100000, guid: 0edbf3bdbf7178349bb22f29b86612d6, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 7400000, guid: 4ca71dd4731901044a8308ef0a51fa30, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: e68951fda9eb0da4aa0c7fdaa7cc1219, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 8130102177662417640, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: 31bae555d91c37c47a1181868917e61d, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: d373038051eb6dd4e914d28686e13545, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 3050956178223055617, guid: e97fca7674651474b88bd7163bb272a5, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 7400000, guid: fd8ac13832f327f4d97b05c01d7ff0b2, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 2955219003579145770, guid: f103dc28e1b83da4db420697ff7f4f7e, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: 7a6ef4c66f11662479ff742cd09d15ac, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: b05405039f3d8ed4d9d92ac82fccddfe, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: 7b3067858eb934c4c828bad24361601e, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: c6bda3b0ac0f27748883fdebf6eaef6a, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 919132149155446097, guid: dffb75200a9c0da4ea0ddfa9d7060cb3, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: a09465b609758fe4b8ac049ea245d647, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: ce346326520fc08479c1233475adea43, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: 0f3ba09b00c0ed34e8f15473873948aa, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 919132149155446097, guid: 39983ac309c64a346b605e69511af288, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 9100000, guid: 590f59dcfaeb01c4eb65216dd8e7524a, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: aa5589ae92941fd429fb575bbed59520, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    instantiationMode: 1
   templatePipeline: {fileID: 11500000, guid: a3b484164c43c744dbb02dd84aca9593, type: 3}
   badge: {fileID: 2800000, guid: 6e967a6845bfd6d438f4db63a9e2936c, type: 3}
   addToDefaults: 1
