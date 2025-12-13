@@ -31,23 +31,25 @@ namespace Twinny.XR
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnPlatformInitialized());
         }
 
-        public async Task<Scene> ChangeScene(int buildIndex, int landMarkIndex = -1, Action<float> onSceneLoading = null) {
-            
-            string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex)); 
+        public async Task<Scene> ChangeScene(int buildIndex, int landMarkIndex = -1, Action<float> onSceneLoading = null)
+        {
+
+            string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex));
             return await ChangeScene(sceneName, landMarkIndex, onSceneLoading);
-        } 
+        }
         public async Task<Scene> ChangeScene(string sceneName, int landMarkIndex = -1, Action<float> onSceneLoading = null)
         {
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
 
 
-            if (SceneManager.sceneCount > 1) 
+            if (SceneManager.sceneCount > 1)
                 await UnloadAdditivesScenes();
 
 
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnSceneLoadStart(sceneName));
-            AsyncOperation async  =  SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            while (!async.isDone) { 
+            AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            while (!async.isDone)
+            {
                 await Task.Yield();
                 onSceneLoading?.Invoke(async.progress);
             }
@@ -95,14 +97,14 @@ namespace Twinny.XR
         public static async Task UnloadAdditivesScenes()
         {
             if (SceneManager.sceneCount <= 1) return;
- 
+
             await Task.Yield(); // Similar "yield return new WaitForEndFrame()"
 
-                for (int i = 1; i < SceneManager.sceneCount; i++)
+            for (int i = 1; i < SceneManager.sceneCount; i++)
             {
                 Scene loadedScene = SceneManager.GetSceneAt(i);
-                    if (loadedScene.IsValid() && loadedScene.isLoaded)
-                        await SceneManager.UnloadSceneAsync(loadedScene);
+                if (loadedScene.IsValid() && loadedScene.isLoaded)
+                    await SceneManager.UnloadSceneAsync(loadedScene);
             }
             await Resources.UnloadUnusedAssets();
 

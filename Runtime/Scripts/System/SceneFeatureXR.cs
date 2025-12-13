@@ -298,7 +298,7 @@ namespace Twinny.XR
             Camera.main.backgroundColor = Color.clear;
             if (status)
             {
-                RenderSettings.skybox = default;// TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
+                RenderSettings.skybox = default; // TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
                 Camera.main.clearFlags = CameraClearFlags.SolidColor;
             }
             else
