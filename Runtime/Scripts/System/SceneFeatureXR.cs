@@ -307,7 +307,7 @@ namespace Twinny.XR
 
             }
 
-            OVRPassthroughLayer passThrough = FindAnyObjectByType<OVRPassthroughLayer>();
+            OVRPassthroughLayer passThrough = FindAnyObjectByType<OVRPassthroughLayer>(FindObjectsInactive.Include);
 
             if (passThrough)
             {
