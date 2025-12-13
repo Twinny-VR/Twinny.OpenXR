@@ -12,39 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: OpenXRExperienceSceneTemplate
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SceneTemplate.SceneTemplateAsset
-  templateScene: {fileID: 102900000, guid: f06e86c4469344944a3941d7391cfc92, type: 3}
+  templateScene: {fileID: 102900000, guid: 93d582826b0347348a3d8ac658ba7d97, type: 3}
   templateName: Tour Scene (OpenXR)
   description: A scene that work with Twinny Engine OpenXR Module
   preview: {fileID: 2800000, guid: 94d720b4bf013c14d97f8cc70d39a85f, type: 3}
   dependencies:
   - dependency: {fileID: 8130102177662417640, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
-    instantiationMode: 1
+  - dependency: {fileID: 6775246184948749936, guid: 6d6e7a7d45f42624c971d33d5262c34d, type: 3}
+    instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     instantiationMode: 1
-  - dependency: {fileID: 5719472355882196184, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
+  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 6071739367207766788, guid: 066a78556d8569e4f9cb128609d4128a, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 8365838483275843342, guid: 08d661f60d2d41a4aaf37859f0b76cd6, type: 3}
+  - dependency: {fileID: 23800000, guid: 2b2b157574083154cb5a88c038c75276, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 8900000, guid: b6e02ba86e1e17d40b807eff0b6f9a1f, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 5036814072828855640, guid: aa2618757ff443d46a3b1d0bb91a0b6e, type: 3}
+  - dependency: {fileID: 2100000, guid: d9938a5d69cfa544aab83bbb9cee43ba, type: 2}
     instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 00b41c8fdc9c1654dbcf3d01f003f6bc, type: 3}
+  - dependency: {fileID: 2100000, guid: c6c760d8231d95c4bb779a44f28b03d4, type: 2}
     instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: e4f97225bcfb64760a1c81f460837f01, type: 3}
+    instantiationMode: 1
   - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
     instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 83c3317d33aa04347ae25b09873e5392, type: 3}
+  - dependency: {fileID: 8900000, guid: 69eb3eaaf0b234a428f624de875b7ec0, type: 3}
     instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 2f4c3044cf264364496c14c84946210c, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 8314303522893266427, guid: 3d20560a7d9b29143901cadd6db5cee9, type: 3}
+  - dependency: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 22fca64743efcfc4192a97243cb053e2, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 7a29e7d49a68af045bb7256ccad50103, type: 3}
-    instantiationMode: 0
   - dependency: {fileID: 2100000, guid: aa5589ae92941fd429fb575bbed59520, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
