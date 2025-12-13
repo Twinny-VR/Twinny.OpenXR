@@ -93,6 +93,8 @@ namespace Twinny.UI
 */ 
             //_banner.transform.SetParent(AnchorManager.Instance.transform);
             _staticHud.transform.SetParent(AnchorManager.Instance.transform);
+            _staticHud.transform.localPosition = Vector3.zero;
+            _staticHud.transform.localRotation = Quaternion.identity;
 
             _mainCameraTransform = Camera.main.transform;
             _previousCameraPos = _mainCameraTransform.position;

@@ -142,11 +142,18 @@ namespace Twinny.XR
         public override void TeleportToLandMark(int landMarkIndex)
         {
             SetupHDRI(landMarkIndex);
-            if (landMarks.Length > 0 && landMarkIndex >= 0)
+            if (GameMode.currentMode is TwinnyXRSingleplayer) return;
+
+
+                if (landMarks.Length > 0 && landMarkIndex >= 0)
             {
+                Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
+
                 if (_currentLandMark != null) _currentLandMark.node?.OnLandMarkUnselected?.Invoke();
                 _currentLandMark = landMarks[landMarkIndex];
 
+                cameraRig.position = Vector3.zero;
+                cameraRig.rotation = Quaternion.identity;
                 worldTransform.localPosition = Vector3.zero;
                 worldTransform.localRotation = Quaternion.identity;
 
@@ -162,7 +169,6 @@ namespace Twinny.XR
 
                 _currentLandMark.node?.OnLandMarkSelected?.Invoke();
 
-                Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
                 bool turnParent = _currentLandMark.node.changeParent;
 
 
