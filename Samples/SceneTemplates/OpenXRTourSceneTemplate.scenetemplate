@@ -12,43 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: OpenXRTourSceneTemplate
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SceneTemplate.SceneTemplateAsset
-  templateScene: {fileID: 102900000, guid: f06e86c4469344944a3941d7391cfc92, type: 3}
+  templateScene: {fileID: 102900000, guid: acd08be3345e3fe4aa57124087e26b76, type: 3}
   templateName: Tour Scene (OpenXR)
   description: A scene that work with Twinny Engine OpenXR Module
   preview: {fileID: 2800000, guid: ea0902fc3e0ea454e9e653971bcbffc9, type: 3}
-  dependencies:
-  - dependency: {fileID: 8130102177662417640, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-    instantiationMode: 1
-  - dependency: {fileID: 5719472355882196184, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 8365838483275843342, guid: 08d661f60d2d41a4aaf37859f0b76cd6, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 5036814072828855640, guid: aa2618757ff443d46a3b1d0bb91a0b6e, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 00b41c8fdc9c1654dbcf3d01f003f6bc, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
-    instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 83c3317d33aa04347ae25b09873e5392, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 2f4c3044cf264364496c14c84946210c, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 8314303522893266427, guid: 3d20560a7d9b29143901cadd6db5cee9, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 22fca64743efcfc4192a97243cb053e2, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2800000, guid: 7a29e7d49a68af045bb7256ccad50103, type: 3}
-    instantiationMode: 0
-  - dependency: {fileID: 2100000, guid: aa5589ae92941fd429fb575bbed59520, type: 2}
-    instantiationMode: 0
-  - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    instantiationMode: 1
+  dependencies: []
   templatePipeline: {fileID: 11500000, guid: a3b484164c43c744dbb02dd84aca9593, type: 3}
   badge: {fileID: 2800000, guid: 6e967a6845bfd6d438f4db63a9e2936c, type: 3}
   addToDefaults: 1

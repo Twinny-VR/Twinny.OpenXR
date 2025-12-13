@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OpenXRExperienceSceneTemplate
   m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SceneTemplate.SceneTemplateAsset
   templateScene: {fileID: 102900000, guid: 93d582826b0347348a3d8ac658ba7d97, type: 3}
-  templateName: Tour Scene (OpenXR)
+  templateName: Imersive Scene (OpenXR)
   description: A scene that work with Twinny Engine OpenXR Module
   preview: {fileID: 2800000, guid: 94d720b4bf013c14d97f8cc70d39a85f, type: 3}
   dependencies:

@@ -29,7 +29,6 @@ namespace Twinny.XR
         public bool isMenuStatic;
         private LandMark currentLandMark;
         private LandMark _currentLandMark;
-        private OVRPassthroughLayer _passThrough;
 
 
         #endregion
@@ -81,8 +80,6 @@ namespace Twinny.XR
                 _ = CanvasTransition.FadeScreenAsync(false, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
             }
 
-
-            _passThrough = FindAnyObjectByType<OVRPassthroughLayer>();
 
             if (OVRManager.display != null)
                 OVRManager.display.RecenteredPose += OnRecenterDetected;
@@ -295,13 +292,13 @@ namespace Twinny.XR
         }
 
 
-        public void SetPassthrough(bool status)
+        public static void SetPassthrough(bool status)
         {
             Debug.LogWarning("SetPassthrough: " + status);
             Camera.main.backgroundColor = Color.clear;
             if (status)
             {
-                RenderSettings.skybox = TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
+                RenderSettings.skybox = default;// TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
                 Camera.main.clearFlags = CameraClearFlags.SolidColor;
             }
             else
@@ -310,10 +307,12 @@ namespace Twinny.XR
 
             }
 
-            if (_passThrough)
+            OVRPassthroughLayer passThrough = FindAnyObjectByType<OVRPassthroughLayer>();
+
+            if (passThrough)
             {
-                _passThrough.enabled = status;
-                _passThrough.gameObject.SetActive(status);
+                passThrough.enabled = status;
+                passThrough.gameObject.SetActive(status);
 
             }
             else
