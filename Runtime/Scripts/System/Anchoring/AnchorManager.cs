@@ -311,19 +311,34 @@ namespace Twinny.XR.Anchoring
 
         public static void PlaceSafeArea(OVRSpatialAnchor anchor) {
 
+            PlaceSafeArea(anchor.transform.position, Quaternion.Euler(0, anchor.transform.rotation.eulerAngles.y, 0), anchor.transform);
+            if(Instance != null)
+            Instance._currentAnchor = anchor;
+
+        }
+        public static void PlaceSafeArea(Vector3 position, Quaternion rotation) => PlaceSafeArea(position,rotation,null);
+        public static void PlaceSafeArea(Vector3 position, Quaternion rotation, Transform parent) {
+            if(Instance == null)
+            {
+                Debug.LogError("[AnchorManager] Instace not found!");
+                return;
+            }
+            Instance.transform.SetParent(null);
+
+            Instance._transform.SetPositionAndRotation(position, rotation);
+
+            Instance._transform.SetParent(parent);
+        }
+
+        public static void ResetSafeArea()
+        {
             if(Instance == null)
             {
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;
             }
 
-
-            Instance.transform.SetParent(null);
-                        
-            Instance._transform.SetPositionAndRotation(anchor.transform.position, Quaternion.Euler(0, anchor.transform.rotation.eulerAngles.y, 0));
-            Instance._transform.SetParent(anchor.transform);
-            Instance._currentAnchor = anchor;
-
+            PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);    
         }
 
         /// <summary>

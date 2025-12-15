@@ -3176,34 +3176,10 @@ MonoBehaviour:
   _activeState: {fileID: 1125734647720460681}
   _whenActivated:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1078263087}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ACTIVATED
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   _whenDeactivated:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1078263087}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: DEACTIVATED
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _emitOnFirstUpdate: 1
 --- !u!1 &127629764
 GameObject:
@@ -11562,7 +11538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 4294967287
+      value: 4294967167
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: _trackingOriginType
@@ -23974,7 +23950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784413389}
   - component: {fileID: 784413390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OculusHandPinchArrowBlended
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27415,7 +27391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887427696}
   - component: {fileID: 887427697}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OculusHandPinchArrowBlended
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30984,13 +30960,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 706013361}
     m_Modifications:
+    - target: {fileID: 1086451585491806663, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2962587743503104408, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2962587743503104408, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.8237
       objectReference: {fileID: 0}
     - target: {fileID: 2962587743503104408, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31034,6 +31014,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2962587743503104415, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 602819148}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetSafeArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Twinny.XR.Anchoring.AnchorManager, Twinny.OpenXR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767502378787625710, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394057956591513897, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394057956591513897, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6225716203828873774, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6991588313974765034, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
@@ -43176,6 +43196,10 @@ PrefabInstance:
       propertyPath: _tint.r
       value: 0.70980394
       objectReference: {fileID: 0}
+    - target: {fileID: 6266331761005125432, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6267690530596161800, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: _ovrCameraRig
       value: 
@@ -43199,6 +43223,10 @@ PrefabInstance:
     - target: {fileID: 7534255213460001462, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: _tint.r
       value: 0.70980394
+      objectReference: {fileID: 0}
+    - target: {fileID: 8029476907400201556, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8779972744546753495, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: _interactors.Array.size
