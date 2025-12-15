@@ -338,6 +338,8 @@ namespace Twinny.XR.Anchoring
                 return;
             }
 
+            if (Instance._currentAnchor != null) return;
+
             PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);    
         }
 
