@@ -18,7 +18,8 @@ namespace Twinny.UI
         CHANGE_SCENE,
         NAVIGATION,
         ACTION,
-        RESTART
+        RESTART,
+        ANCHORING
     }
 
     [RequireComponent(typeof(PointableUnityEventWrapper))]
@@ -69,6 +70,9 @@ namespace Twinny.UI
                     break;
                 case ButtonType.ACTION:
                     ActionManager.CallAction(parameter);
+                    break;
+                case ButtonType.ANCHORING:
+                    AnchorManager.HandleAnchorPlacement();
                     break;
             }
         }
