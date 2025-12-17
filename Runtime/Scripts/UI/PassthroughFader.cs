@@ -65,8 +65,8 @@ namespace Twinny.XR
         private float selectiveDistance = 5f;
 
         [Tooltip("The speed of the fade effect.")]
-        [SerializeField]
-        private float fadeSpeed = 1f;
+        public float defaultFadeSpeed = .5f;
+        private float m_fadeSpeed = .5f;
 
         [Tooltip("The direction of the fade effect.")]
         [SerializeField]
@@ -190,8 +190,9 @@ namespace Twinny.XR
         /// Called (for example, by a UI button) to toggle between passthrough states.
         /// </summary>
         public static void TogglePassthroughAction() => Instance.TogglePassthrough();
-        public static void TogglePassthroughAction(bool status)
+        public static void TogglePassthroughAction(bool status, float fadeSpeed = -1)
         {
+            Instance.m_fadeSpeed = (fadeSpeed > 0) ? fadeSpeed : Instance.defaultFadeSpeed;
             if ((status && Instance.State == FaderState.MR)
             || (!status && Instance.State == FaderState.VR))
                 return;
@@ -262,12 +263,12 @@ namespace Twinny.XR
         private IEnumerator FadeToTarget()
         {
             var currentAlpha = m_material.GetFloat(s_invertedAlpha);
-            while (Mathf.Abs(currentAlpha - m_targetAlpha) > FADE_TOLERANCE)
-            {
-                currentAlpha = Mathf.MoveTowards(currentAlpha, m_targetAlpha, fadeSpeed * Time.deltaTime);
-                m_material.SetFloat(s_invertedAlpha, currentAlpha);
-                yield return null;
-            }
+                while (Mathf.Abs(currentAlpha - m_targetAlpha) > FADE_TOLERANCE)
+                {
+                    currentAlpha = Mathf.MoveTowards(currentAlpha, m_targetAlpha, m_fadeSpeed * Time.deltaTime);
+                    m_material.SetFloat(s_invertedAlpha, currentAlpha);
+                    yield return null;
+                }
 
             if (Mathf.Abs(m_targetAlpha - 1f) < FADE_TOLERANCE)
             {

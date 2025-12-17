@@ -12,6 +12,10 @@ public class PokeableToggle : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
+        if (!Application.isPlaying || !isActiveAndEnabled)
+            return;
+
+
         Slide();
     }
 #endif

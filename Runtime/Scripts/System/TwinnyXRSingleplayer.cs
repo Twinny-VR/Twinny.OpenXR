@@ -113,7 +113,7 @@ namespace Twinny.XR
         public async void RestartExperience()
         {
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
-            PassthroughFader.TogglePassthroughAction(true);
+            PassthroughFader.TogglePassthroughAction(true, 100f);
             await UnloadAdditivesScenes();
             await StartExperience(1);
         }

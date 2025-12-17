@@ -326,7 +326,7 @@ namespace Twinny.XR.Anchoring
                 return;
             }
             Instance.transform.SetParent(null);
-
+            //position.y = 0;
             Instance._transform.SetPositionAndRotation(position, rotation);
 
             Instance._transform.SetParent(parent);
@@ -341,7 +341,6 @@ namespace Twinny.XR.Anchoring
             }
 
             if (Instance._currentAnchor != null) return;
-
             PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);
         }
 

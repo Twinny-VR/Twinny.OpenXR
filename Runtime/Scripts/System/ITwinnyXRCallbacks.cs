@@ -11,5 +11,6 @@ namespace Twinny.XR
 
         void OnStartInteract(GameObject gameObject);
         void OnStopInteract(GameObject gameObject);
+        void OnTeleport();
     }
 }

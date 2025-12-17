@@ -463,6 +463,16 @@ namespace Twinny.UI
         {
         }
 
+        public void OnTeleport()
+        {
+            Transform rig = FindAnyObjectByType<OVRCameraRig>().transform;
+            var newPos = rig.position;
+            newPos.y = 0;
+            rig.position = newPos;
+
+            Debug.LogWarning($"[HUDManagerXR] RIG:{rig.position} CanvasRoot:{_canvasRoot.position}");
+        }
+
         /*
         public void OnConnected(GameMode gameMode)
         {

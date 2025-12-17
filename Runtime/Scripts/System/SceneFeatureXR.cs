@@ -71,6 +71,7 @@ namespace Twinny.XR
         protected override void Start()
         {
             base.Start();
+            PassthroughFader.TogglePassthroughAction(sceneType == SceneType.MR, 100f);
 
             AnchorScene();
 
@@ -235,7 +236,7 @@ namespace Twinny.XR
 
             if (landMarkIndex < 0)//If no LandMark to set, reset skybox to Passthroug
             {
-                PassthroughFader.TogglePassthroughAction(true);
+                PassthroughFader.TogglePassthroughAction(true,100f);
                 //RenderSettings.skybox = TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
                 return;
             }
@@ -247,8 +248,6 @@ namespace Twinny.XR
                 SetHDRI(landMark.skyBoxMaterial);
                 currentLandMark = landMark;
             }
-            var status = sceneType == SceneType.MR;
-            PassthroughFader.TogglePassthroughAction(status);
 
         }
 

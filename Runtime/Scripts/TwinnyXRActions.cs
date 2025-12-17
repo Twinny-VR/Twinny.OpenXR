@@ -32,7 +32,8 @@ namespace Twinny.XR
         [SerializeField] private UnityEvent OnSceneLoadedEvent = new UnityEvent();
         [SerializeField] private UnityEvent OnStartInteractEvent = new UnityEvent();
         [SerializeField] private UnityEvent OnStopInteractEvent = new UnityEvent();
-        [SerializeField] private UnityEvent OnTeleport = new UnityEvent();
+        [SerializeField] private UnityEvent OnTeleportEvent = new UnityEvent();
+        [SerializeField] private UnityEvent OnTeleportToLandMarkEvent = new UnityEvent();
 
         #endregion
 
@@ -71,6 +72,9 @@ namespace Twinny.XR
 
         public void StartInteract(GameObject gameObject) => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnStartInteract(gameObject));
         public void StopInteract(GameObject gameObject) => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnStopInteract(gameObject));
+
+        public void TeleportCallback() => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleport());
+        
         #endregion
 
 
@@ -110,8 +114,9 @@ namespace Twinny.XR
         public void OnStartInteract(GameObject gameObject) => OnStartInteractEvent?.Invoke();
 
         public void OnStopInteract(GameObject gameObject) => OnStartInteractEvent?.Invoke();
-        public void OnTeleportToLandMark(int landMarkIndex) => OnTeleport?.Invoke();
+        public void OnTeleportToLandMark(int landMarkIndex) => OnTeleportToLandMarkEvent?.Invoke();
 
+        public void OnTeleport() => OnTeleportEvent?.Invoke();
 
 #if UNITY_EDITOR
         [ContextMenu("Start")]
@@ -125,6 +130,7 @@ namespace Twinny.XR
             ChangeScene("OpenXRExperienceScene");
             NavigateTo(0);
         }
+
 #endif
     }
 }
