@@ -29,7 +29,7 @@ namespace Twinny.XR.Anchoring
         private Transform _transform;
         #endregion
 
-        public static Vector3 position { get => Instance._transform.position;  }
+        public static Vector3 position { get => Instance._transform.position; }
         public static Quaternion rotation { get => Instance._transform.rotation; }
 
 
@@ -42,7 +42,6 @@ namespace Twinny.XR.Anchoring
         [SerializeField] private SpatialAnchorCoreBuildingBlock _spatialAnchorCore;
         [SerializeField] private SpatialAnchorLoaderBuildingBlock _spatialAnchorLoader;
         [SerializeField] private SpatialAnchorSpawnerBuildingBlock _spatialAnchorSpawner;
-
         [SerializeField] private float _maxDistance = 5f;
 
         [SerializeField] private bool _usePinchToAnchor = false;
@@ -144,8 +143,8 @@ namespace Twinny.XR.Anchoring
             _spatialAnchorCore.OnAnchorCreateCompleted.AddListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.AddListener(OnAnchorEraseCompleted);
             //Set callbacks delegates
-             GestureMonitor.Instance.OnPinchLeft += OnPinchLeft;
-             GestureMonitor.Instance.OnPinchRight += OnPinchRight;
+            GestureMonitor.Instance.OnPinchLeft += OnPinchLeft;
+            GestureMonitor.Instance.OnPinchRight += OnPinchRight;
 
             _spatialAnchorLoader.LoadAnchorsFromDefaultLocalStorage();
 
@@ -170,7 +169,7 @@ namespace Twinny.XR.Anchoring
             //Unset Delegates
             GestureMonitor.Instance.OnPinchLeft -= OnPinchLeft;
             GestureMonitor.Instance.OnPinchRight -= OnPinchRight;
-           //Unset listeners
+            //Unset listeners
             _spatialAnchorCore.OnAnchorsLoadCompleted.RemoveListener(OnAnchorsLoadCompleted);
             _spatialAnchorCore.OnAnchorCreateCompleted.RemoveListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.RemoveListener(OnAnchorEraseCompleted);
@@ -192,8 +191,9 @@ namespace Twinny.XR.Anchoring
             if (Instance._state == StateAnchorManager.DISABLED || Instance._state == StateAnchorManager.ANCHORED)
             {
                 Instance._state = StateAnchorManager.ANCHORING;
-            } else
-                if(Instance._state == StateAnchorManager.ANCHORING)
+            }
+            else
+                if (Instance._state == StateAnchorManager.ANCHORING)
             {
                 CreateAnchor();
             }
@@ -309,16 +309,18 @@ namespace Twinny.XR.Anchoring
             // _transform.gameObject.AddComponent<OVRSpatialAnchor>();
         }
 
-        public static void PlaceSafeArea(OVRSpatialAnchor anchor) {
+        public static void PlaceSafeArea(OVRSpatialAnchor anchor)
+        {
 
             PlaceSafeArea(anchor.transform.position, Quaternion.Euler(0, anchor.transform.rotation.eulerAngles.y, 0), anchor.transform);
-            if(Instance != null)
-            Instance._currentAnchor = anchor;
+            if (Instance != null)
+                Instance._currentAnchor = anchor;
 
         }
-        public static void PlaceSafeArea(Vector3 position, Quaternion rotation) => PlaceSafeArea(position,rotation,null);
-        public static void PlaceSafeArea(Vector3 position, Quaternion rotation, Transform parent) {
-            if(Instance == null)
+        public static void PlaceSafeArea(Vector3 position, Quaternion rotation) => PlaceSafeArea(position, rotation, null);
+        public static void PlaceSafeArea(Vector3 position, Quaternion rotation, Transform parent)
+        {
+            if (Instance == null)
             {
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;
@@ -332,7 +334,7 @@ namespace Twinny.XR.Anchoring
 
         public static void ResetSafeArea()
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;
@@ -340,7 +342,7 @@ namespace Twinny.XR.Anchoring
 
             if (Instance._currentAnchor != null) return;
 
-            PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);    
+            PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);
         }
 
         /// <summary>
@@ -398,8 +400,12 @@ namespace Twinny.XR.Anchoring
             }
 
             float targetDistance = Mathf.Lerp(_maxDistance, 0f, Mathf.InverseLerp(-70f, 90f, cameraPitch));
+            Vector3 targetPosition =
+    _mainCamera.transform.position +
+    forwardDirection * targetDistance +
+    forwardDirection * TwinnyRuntime.GetInstance<TwinnyXRRuntime>().anchoringDistanceOffset;
 
-            Vector3 targetPosition = _mainCamera.transform.position + forwardDirection * targetDistance;
+            // Vector3 targetPosition = _mainCamera.transform.position + forwardDirection * targetDistance;
             Quaternion targetRotation = Quaternion.LookRotation(forwardDirection);
 
             //Sets Visual Anchor and Safe Area placement by the anchor
@@ -444,7 +450,7 @@ namespace Twinny.XR.Anchoring
         }
 
 
-#endregion
+        #endregion
         #region Coroutines
 
         IEnumerator GetAlignCameraToAnchorCoroutine()

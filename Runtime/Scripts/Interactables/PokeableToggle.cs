@@ -9,6 +9,13 @@ public class PokeableToggle : MonoBehaviour
     [SerializeField] Vector2 m_fromToPosition;
     Coroutine m_moveRoutine;
 
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        Slide();
+    }
+#endif
+
     [SerializeField]
     private bool m_checked;
     public bool Checked
@@ -52,7 +59,6 @@ public class PokeableToggle : MonoBehaviour
 
         float startX = m_dragger.anchoredPosition.x;
 
-        Debug.Log($"Iniciando movimento: {startX} -> {targetX} (diferença: {targetX - startX})");
 
         float startTime = Time.unscaledTime;
 
@@ -71,7 +77,6 @@ public class PokeableToggle : MonoBehaviour
         m_dragger.anchoredPosition = new Vector2(targetX, m_dragger.anchoredPosition.y);
         m_moveRoutine = null;
 
-        Debug.Log("Movimento concluído");
     }
 
 }

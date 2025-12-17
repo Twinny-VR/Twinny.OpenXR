@@ -19,7 +19,8 @@ namespace Twinny.UI
         NAVIGATION,
         ACTION,
         RESTART,
-        ANCHORING
+        ANCHORING,
+        PASSTHROUGH
     }
 
     [RequireComponent(typeof(PointableUnityEventWrapper))]
@@ -34,8 +35,8 @@ namespace Twinny.UI
         #region MonoBehaviour Methods
         protected virtual void Awake()
         {
-            if(!_pointable)
-            _pointable = GetComponent<PointableUnityEventWrapper>();
+            if (!_pointable)
+                _pointable = GetComponent<PointableUnityEventWrapper>();
             _pointable.WhenRelease.AddListener((pointerEvent) => OnRelease());
         }
 
@@ -56,7 +57,7 @@ namespace Twinny.UI
                 case ButtonType.START:
                     GameMode.currentMode.StartExperience(parameter);
                     break;
-                    case ButtonType.QUIT:
+                case ButtonType.QUIT:
                     GameMode.currentMode.Quit();
                     break;
                 case ButtonType.RESTART:
@@ -73,6 +74,9 @@ namespace Twinny.UI
                     break;
                 case ButtonType.ANCHORING:
                     AnchorManager.HandleAnchorPlacement();
+                    break;
+                case ButtonType.PASSTHROUGH:
+                    PassthroughFader.TogglePassthroughAction();
                     break;
             }
         }

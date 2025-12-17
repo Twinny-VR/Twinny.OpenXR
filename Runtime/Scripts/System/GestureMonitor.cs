@@ -34,6 +34,9 @@ namespace Twinny.XR
         [SerializeField] private LayerMask _interactableLayer;
         private Interactable _target;
         private float _observeTime = 0f;
+
+        [SerializeField] private GameObject m_handForwardGestureRight;
+
         #endregion
 
         #region Delegates
@@ -283,6 +286,8 @@ namespace Twinny.XR
         }
 
         #endregion
+
+        public static void SetHandForwardGestureRight(bool status) => Instance.m_handForwardGestureRight?.SetActive(status);
     }
 
 }

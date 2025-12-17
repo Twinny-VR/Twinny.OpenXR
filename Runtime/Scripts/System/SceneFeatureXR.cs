@@ -89,6 +89,7 @@ namespace Twinny.XR
 
             int layer = LayerMask.NameToLayer("Character");
 
+            GestureMonitor.SetHandForwardGestureRight(sceneType == SceneType.VR);
             if (layer == -1) return;
 
 
@@ -103,7 +104,6 @@ namespace Twinny.XR
                 //              Camera.main.cullingMask &= ~(1 << layer);
 
             }
-
 
             //CheckGameMode();
 
@@ -235,7 +235,8 @@ namespace Twinny.XR
 
             if (landMarkIndex < 0)//If no LandMark to set, reset skybox to Passthroug
             {
-                SetPassthrough(true);
+                PassthroughFader.TogglePassthroughAction(true);
+                //RenderSettings.skybox = TwinnyRuntime.GetInstance<TwinnyXRRuntime>().defaultSkybox;
                 return;
             }
 
@@ -246,8 +247,8 @@ namespace Twinny.XR
                 SetHDRI(landMark.skyBoxMaterial);
                 currentLandMark = landMark;
             }
-
-            SetPassthrough(sceneType == SceneType.MR);
+            var status = sceneType == SceneType.MR;
+            PassthroughFader.TogglePassthroughAction(status);
 
         }
 
@@ -297,7 +298,7 @@ namespace Twinny.XR
             SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
         }
 
-
+        /*
         public static void SetPassthrough(bool status)
         {
             Debug.LogWarning("SetPassthrough: " + status);
@@ -330,7 +331,7 @@ namespace Twinny.XR
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnSetPassthrough(status));
 
         }
-
+        */
 
         public void AnchorScene()
         {
