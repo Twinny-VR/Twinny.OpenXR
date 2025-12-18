@@ -55,7 +55,7 @@ namespace Twinny.UI
             switch (type)
             {
                 case ButtonType.START:
-                    GameMode.currentMode.StartExperience(parameter);
+                    GameMode.currentMode.StartExperience(parameter, landMarkIndex);
                     break;
                 case ButtonType.QUIT:
                     GameMode.currentMode.Quit();

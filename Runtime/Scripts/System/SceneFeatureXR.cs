@@ -118,7 +118,7 @@ namespace Twinny.XR
 
         private void OnDestroy()
         {
-            SetupHDRI(-1);
+           // SetupHDRI(-1);
             //CallbackHub.CallAction<IUICallBacks>(callback => callback.OnLoadExtensionMenu(null));
 
             if (OVRManager.display != null)

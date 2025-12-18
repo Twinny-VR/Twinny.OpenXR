@@ -77,12 +77,12 @@ namespace Twinny.XR
             await CanvasTransition.FadeScreenAsync(false, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
         }
 
-        public async Task StartExperience(int buildIndex, int landMarkIndex = -1)
+        public async Task StartExperience(int buildIndex, int landMarkIndex)
         {
             string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex));
             await StartExperience(sceneName, landMarkIndex);
         }
-        public async Task StartExperience(string sceneName, int landMarkIndex = -1)
+        public async Task StartExperience(string sceneName, int landMarkIndex)
         {
 
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnExperienceStarting());
@@ -117,7 +117,7 @@ namespace Twinny.XR
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
             PassthroughFader.TogglePassthroughAction(true, 100f);
             await UnloadAdditivesScenes();
-            await StartExperience(1);
+            await StartExperience(1,-1);
         }
 
         public void Quit()

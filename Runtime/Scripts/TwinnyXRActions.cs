@@ -61,7 +61,7 @@ namespace Twinny.XR
 
         #region UI Callback Actions
         public void Test(Dictionary<string, int> values) { }
-        public void StartExperience(string sceneName) => m_gameMode?.StartExperience(sceneName);
+        public void StartExperience(string sceneName, int buildIndex) => m_gameMode?.StartExperience(sceneName, buildIndex);
         public void RestartExperience() => m_gameMode?.RestartExperience();
 
         public void ChangeScene(string sceneName) => m_gameMode?.ChangeScene(sceneName);
@@ -122,7 +122,7 @@ namespace Twinny.XR
         [ContextMenu("Start")]
         public void StartMockup()
         {
-            StartExperience("OpenXRMockupScene");
+            StartExperience("OpenXRMockupScene",-1);
         }
         [ContextMenu("Imersive")]
         public void StartImersive()
