@@ -112,6 +112,8 @@ namespace Twinny.XR
 
         public async void RestartExperience()
         {
+            GestureMonitor.SetHandForwardGestureRight(false);
+
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
             PassthroughFader.TogglePassthroughAction(true, 100f);
             await UnloadAdditivesScenes();
@@ -120,7 +122,7 @@ namespace Twinny.XR
 
         public void Quit()
         {
-            throw new NotImplementedException();
+            GestureMonitor.SetHandForwardGestureRight(false);
         }
     }
 }
