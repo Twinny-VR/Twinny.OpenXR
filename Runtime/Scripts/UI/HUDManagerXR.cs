@@ -307,15 +307,15 @@ namespace Twinny.UI
         #region UI Buttons Actions
         public void HandleAnchor()
         {
-
-            AnchorManager.HandleAnchorPlacement();
+           AnchorManager.HandleAnchorPlacement();
         }
 
+        /*
         public void CreateAnchor()
         {
             AnchorManager.CreateAnchor();
         }
-
+        */
         #endregion
 
         #region CallBack Methods

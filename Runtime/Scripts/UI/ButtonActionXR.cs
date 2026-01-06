@@ -31,23 +31,31 @@ namespace Twinny.UI
         public string parameter;
         public int landMarkIndex;
 
-
         #region MonoBehaviour Methods
-        protected virtual void Awake()
+        protected virtual void OnEnable()
         {
             if (!_pointable)
                 _pointable = GetComponent<PointableUnityEventWrapper>();
-            _pointable.WhenRelease.AddListener((pointerEvent) => OnRelease());
+            _pointable.WhenRelease.AddListener(OnRelease);
+            Debug.LogWarning($"[ButtonAction] {name} ENABLED");
         }
 
+        private void OnDisable()
+        {
+          if (_pointable) _pointable.WhenRelease.RemoveListener(OnRelease);
+        }
 
         #endregion
         //[ContextMenu("CLICK")]
 
-        public void OnRelease()
+        public void OnRelease() => OnRelease(default);
+        public void OnRelease(PointerEvent evt)
         {
+            Debug.LogWarning($"[ButtonAction] {name} ON RELEASE ({evt.EventId})");
+            
+
             //TODO Criar um sistema de configurações
-            if (!TwinnyRuntime.GetInstance<TwinnyXRRuntime>().allowClickSafeAreaOutside && !AnchorManager.Instance.isInSafeArea)
+            if (type != ButtonType.ANCHORING && !TwinnyRuntime.GetInstance<TwinnyXRRuntime>().allowClickSafeAreaOutside && !AnchorManager.Instance.isInSafeArea)
             {
                 AlertViewHUD.PostMessage("Volte para a Safe Área!", AlertViewHUD.MessageType.Warning, 5f);
                 return;
@@ -73,6 +81,7 @@ namespace Twinny.UI
                     ActionManager.CallAction(parameter);
                     break;
                 case ButtonType.ANCHORING:
+                    Debug.LogWarning("[ButtonAction] ANCHORING");
                     AnchorManager.HandleAnchorPlacement();
                     break;
                 case ButtonType.PASSTHROUGH:

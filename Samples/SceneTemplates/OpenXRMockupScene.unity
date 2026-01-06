@@ -408,7 +408,10 @@ MonoBehaviour:
   OnStopInteractEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnTeleport:
+  OnTeleportEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTeleportToLandMarkEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &1232148307

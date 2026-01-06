@@ -8,6 +8,7 @@ using Twinny.XR;
 using Concept.Helpers;
 using Twinny.Core;
 using Concept.Core;
+using System.Linq;
 
 namespace Twinny.XR.Anchoring
 {
@@ -167,8 +168,8 @@ namespace Twinny.XR.Anchoring
         private void OnDestroy()
         {
             //Unset Delegates
-            GestureMonitor.Instance.OnPinchLeft -= OnPinchLeft;
-            GestureMonitor.Instance.OnPinchRight -= OnPinchRight;
+           // GestureMonitor.Instance.OnPinchLeft -= OnPinchLeft;
+           // GestureMonitor.Instance.OnPinchRight -= OnPinchRight;
             //Unset listeners
             _spatialAnchorCore.OnAnchorsLoadCompleted.RemoveListener(OnAnchorsLoadCompleted);
             _spatialAnchorCore.OnAnchorCreateCompleted.RemoveListener(OnAnchorCreateCompleted);
@@ -187,7 +188,7 @@ namespace Twinny.XR.Anchoring
         /// <param name="status">Is handling switch.</param>
         public static void HandleAnchorPlacement()
         {
-
+            Debug.LogWarning($"[AnchorManager] HandleAnchorPlacement ({Instance._state})");
             if (Instance._state == StateAnchorManager.DISABLED || Instance._state == StateAnchorManager.ANCHORED)
             {
                 Instance._state = StateAnchorManager.ANCHORING;
@@ -212,6 +213,7 @@ namespace Twinny.XR.Anchoring
             Vector3 desiredPosition = Instance._transform.position;
             desiredPosition.y = 0;
             Instance._spatialAnchorSpawner.SpawnSpatialAnchor(desiredPosition, Instance._transform.rotation);
+
         }
 
         public async static void Recolocation()
@@ -290,7 +292,7 @@ namespace Twinny.XR.Anchoring
         /// This method is a callback for when SpacialAnchorCoreBuildingBlock finishes the Anchors Loading
         /// </summary>
         /// <param name="loadedAnchors">A list of OVRSpatialAnchors received by Core</param>
-        private void OnAnchorsLoadCompleted(List<OVRSpatialAnchor> loadedAnchors)
+        private async void OnAnchorsLoadCompleted(List<OVRSpatialAnchor> loadedAnchors)
         {
             if (loadedAnchors.Count == 0)
             {
@@ -298,8 +300,9 @@ namespace Twinny.XR.Anchoring
                 _stateAnchorManager = StateAnchorManager.DISABLED;
                 return;
             }
-            OVRSpatialAnchor anchor = loadedAnchors[0];
-            Debug.LogWarning($"[{nameof(AnchorManager)}] Anchors loaded successfully! ({anchor.transform.position})");
+            OVRSpatialAnchor anchor = loadedAnchors[loadedAnchors.Count -1];
+            await anchor.WhenLocalizedAsync();
+            Debug.LogWarning($"[{nameof(AnchorManager)}] ({loadedAnchors.Count}) Anchors loaded successfully! POS: ({anchor.transform.position}) ROT: ({anchor.transform.eulerAngles})");
 
 
 
@@ -326,9 +329,9 @@ namespace Twinny.XR.Anchoring
                 return;
             }
             Instance.transform.SetParent(null);
-            //position.y = 0;
+            position.y = 0;
             Instance._transform.SetPositionAndRotation(position, rotation);
-
+            //Instance._transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             Instance._transform.SetParent(parent);
         }
 
@@ -366,7 +369,7 @@ namespace Twinny.XR.Anchoring
                 _transform.SetParent(anchor.transform);
                 _currentAnchor = anchor;
                 SpawnColocation();
-                Debug.LogWarning("[AnchorManager] Anchor create successfully!");
+                Debug.LogWarning($"[{nameof(AnchorManager)}] Anchor created successfully! POS: ({anchor.transform.position}) ROT: ({anchor.transform.eulerAngles})");
 
 
 
@@ -379,6 +382,8 @@ namespace Twinny.XR.Anchoring
         private void OnAnchorEraseCompleted(OVRSpatialAnchor anchor, OVRSpatialAnchor.OperationResult result)
         {
             _currentAnchor = anchor;
+            Debug.LogWarning($"[{nameof(AnchorManager)}] All anchors erased! ({anchor == null})");
+
 
         }
 
@@ -428,7 +433,7 @@ namespace Twinny.XR.Anchoring
         private void OnPinchRight()
         {
             if (!_usePinchToAnchor || _state != StateAnchorManager.ANCHORING) return;
-            CreateAnchor();
+           // CreateAnchor();
 
         }
 
