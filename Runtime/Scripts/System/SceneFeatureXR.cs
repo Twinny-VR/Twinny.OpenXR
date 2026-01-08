@@ -43,8 +43,8 @@ namespace Twinny.XR
         protected override void OnValidate()
         {
             base.OnValidate();
-            if (worldTransform == null)  worldTransform = transform.Find("World"); 
-            if (worldTransform == null)  worldTransform = new GameObject("World").transform;
+            if (worldTransform == null) worldTransform = transform.Find("World");
+            if (worldTransform == null) worldTransform = new GameObject("World").transform;
             worldTransform.SetParent(transform);
             if (landMarks == null) return;
 
@@ -60,6 +60,11 @@ namespace Twinny.XR
 
         }
 #endif
+        private void OnEnable()
+        {
+            //    CallbackHub.RegisterCallback<ITwinnyXRCallbacks>(this);
+        }
+
 
         //Awake is called before the script is started
         protected override void Awake()
@@ -120,6 +125,7 @@ namespace Twinny.XR
 
         private void OnDisable()
         {
+            //CallbackHub.UnregisterCallback<ITwinnyXRCallbacks>(this);
             //    NavigationMenu.Instance.SetArrows(null);
         }
 
@@ -153,49 +159,56 @@ namespace Twinny.XR
         /// <param name="landMarkIndex">Index on landMarks array.</param>
         public override void TeleportToLandMark(int landMarkIndex)
         {
-            SetupHDRI(landMarkIndex);
+            Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
 
+            SetupHDRI(landMarkIndex);
 
             if (landMarks.Length > 0 && landMarkIndex >= 0)
             {
-                Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
-
+                // cameraRig.position = new Vector3(Camera.main.transform.position.x,cameraRig.position.y,Camera.main.transform.position.z);
                 if (_currentLandMark != null) _currentLandMark.node?.OnLandMarkUnselected?.Invoke();
                 _currentLandMark = landMarks[landMarkIndex];
+                var node = _currentLandMark.node;
 
-                cameraRig.position = Vector3.zero;
-                cameraRig.rotation = Quaternion.identity;
-                worldTransform.localPosition = Vector3.zero;
-                worldTransform.localRotation = Quaternion.identity;
-
-                Vector3 desiredPosition = -_currentLandMark.node.transform.localPosition;
-                // worldTransform.SetParent(AnchorManager.Instance.transform);
-
-                worldTransform.localPosition = desiredPosition;
-                worldTransform.RotateAround(AnchorManager.Instance.transform.position, Vector3.up, -_currentLandMark.node.transform.localRotation.eulerAngles.y);
-
-
-                //worldTransform.localRotation = Quaternion.identity;
-                //.position = AnchorManager.Instance.transform.position;
-
-                //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
-
-                SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
-
-                _currentLandMark.node?.OnLandMarkSelected?.Invoke();
-
-                bool turnParent = _currentLandMark.node.changeParent;
-
-
-                if (turnParent)
-                    cameraRig.SetParent(_currentLandMark.node.newParent);
+                    worldTransform.localPosition = Vector3.zero;
+                    worldTransform.localRotation = Quaternion.identity;
+                    cameraRig.localPosition = Vector3.zero;
+                    cameraRig.localRotation = Quaternion.identity;
+                if (node.changeParent != null)
+                {
+                    Transform centerEye = Camera.main.transform;
+                    var hmdOffset = centerEye.position - cameraRig.position;
+                    hmdOffset.y = centerEye.position.y;
+                    Vector3 desiredPosition = -_currentLandMark.node.transform.position - hmdOffset;
+                    worldTransform.localPosition = desiredPosition;
+                   // cameraRig.SetParent(node.changeParent);
+                }
                 else
                 {
+
+
+                    float nodeYaw = GetYawRelativeToParent(node.transform, worldTransform.parent);
+
+                    worldTransform.localRotation = Quaternion.Euler(0f, -nodeYaw, 0f);
+
+                    Vector3 nodeLocalPos = worldTransform.parent.InverseTransformPoint(node.transform.position);
+
+                    worldTransform.localPosition = -(worldTransform.localRotation * nodeLocalPos);
+
+                    //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
+
+                    SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
+
+
+
+
                     cameraRig.SetParent(null);
-                    cameraRig.position = Vector3.zero;
                     var activeScene = SceneManager.GetSceneByBuildIndex(0);
                     SceneManager.MoveGameObjectToScene(cameraRig.gameObject, activeScene);
+                    cameraRig.position = Vector3.zero;
+                    cameraRig.rotation = Quaternion.identity;
                 }
+                    node?.OnLandMarkSelected?.Invoke();
             }
             else
             {
@@ -208,7 +221,27 @@ namespace Twinny.XR
             }
 
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleportToLandMark(landMarkIndex));
+
+            Debug.LogWarning($"[AnchorManager][LandMark] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
+                $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º");
+
+
         }
+
+        static float GetYawRelativeToParent(Transform target, Transform parent)
+        {
+            Vector3 forward = target.forward;
+
+            // remove pitch/roll
+            Vector3 flatForward = Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+
+            // traz para o espaço do parent
+            if (parent != null)
+                flatForward = parent.InverseTransformDirection(flatForward);
+
+            return Mathf.Atan2(flatForward.x, flatForward.z) * Mathf.Rad2Deg;
+        }
+
 
         #endregion
 
@@ -232,7 +265,7 @@ namespace Twinny.XR
 
         public void OnRecenterDetected()
         {
-
+            AnchorScene();
             _ = RecenterSkyBox();
 
 
@@ -269,7 +302,7 @@ namespace Twinny.XR
         }
 
 
-        
+
         private async void SetHDRIRotation(float angle)
         {
             await Task.Yield();
@@ -318,14 +351,14 @@ namespace Twinny.XR
             Debug.LogWarning($"[SceneFeature] Recenter. Anchor " +
                 $"P:{AnchorManager.Instance.transform.position} " +
                 $"R:{AnchorManager.Instance.transform.rotation.eulerAngles}" +
-                $"LR:{AnchorManager.Instance.transform.localRotation.eulerAngles}"); 
+                $"LR:{AnchorManager.Instance.transform.localRotation.eulerAngles}");
             Debug.LogWarning($"[SceneFeature] Recenter. World " +
                 $"P:{worldTransform.position} " +
                 $"R:{worldTransform.rotation.eulerAngles}" +
-                $"LR:{worldTransform.localRotation.eulerAngles}"); 
+                $"LR:{worldTransform.localRotation.eulerAngles}");
 
 
-            Debug.LogWarning($"[SceneFeature] Recenter. Anchor R:{AnchorManager.Instance.transform.position}"); 
+            Debug.LogWarning($"[SceneFeature] Recenter. Anchor R:{AnchorManager.Instance.transform.position}");
             await Task.Yield();
 
 
@@ -390,8 +423,8 @@ namespace Twinny.XR
 
         public void AnchorScene()
         {
-            transform.position = AnchorManager.Instance.transform.position;
-            transform.rotation = AnchorManager.Instance.transform.rotation;
+            transform.position = AnchorManager.position;
+            transform.rotation = AnchorManager.rotation;
             Debug.LogWarning($"[SceneFeature] Game Mode: {GameMode.currentMode}");
             Debug.LogWarning($"[SceneFeature] Scene Type: {sceneType}");
             if (sceneType == SceneType.VR && GameMode.currentMode is TwinnyXRSingleplayer) return;
@@ -399,8 +432,9 @@ namespace Twinny.XR
              gameObject.AddComponent<OVRSpatialAnchor>();
 #endif
         }
-
         #endregion
+
+
     }
 
 }

@@ -463,6 +463,7 @@ namespace Twinny.UI
         {
         }
 
+        public void OnStartTeleport() { }
         public void OnTeleport()
         {
             Transform rig = FindAnyObjectByType<OVRCameraRig>().transform;

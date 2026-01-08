@@ -318,7 +318,7 @@ namespace Twinny.XR.Anchoring
             PlaceSafeArea(anchor.transform.position, Quaternion.Euler(0, anchor.transform.rotation.eulerAngles.y, 0), anchor.transform);
             if (Instance != null)
                 Instance._currentAnchor = anchor;
-
+            Debug.LogWarning($"[AnchorManager] ANCHOR: {anchor.transform.position}");
         }
         public static void PlaceSafeArea(Vector3 position, Quaternion rotation) => PlaceSafeArea(position, rotation, null);
         public static void PlaceSafeArea(Vector3 position, Quaternion rotation, Transform parent)
@@ -328,23 +328,28 @@ namespace Twinny.XR.Anchoring
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;
             }
-            Instance.transform.SetParent(null);
+            Instance._transform.SetParent(null);
             position.y = 0;
             Instance._transform.SetPositionAndRotation(position, rotation);
             //Instance._transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             Instance._transform.SetParent(parent);
+            Debug.LogWarning($"[AnchorManager] SAFE: {Instance._transform.position}");
+            Debug.LogWarning($"[AnchorManager] RIG: {Instance._cameraRig.position} {Instance._cameraRig.eulerAngles.y}º CAM: {Camera.main.transform.position}");
         }
 
-        public static void ResetSafeArea()
+        public static void ResetSafeArea() => PlaceSafeArea(currentAnchor);
+        public static void UpdateSafeArea()
         {
-            if (Instance == null)
+            var worldTransform = (SceneFeatureXR.Instance as SceneFeatureXR).worldTransform;
+            Debug.LogWarning($"[AnchorManager][Teleport] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
+                $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º"); if (Instance == null)
             {
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;
             }
 
-            if (Instance._currentAnchor != null) return;
-            PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);
+            //if (Instance._currentAnchor != null) return;
+           // PlaceSafeArea(Instance._cameraRig.transform.position, Instance._cameraRig.transform.rotation, null);
         }
 
         /// <summary>

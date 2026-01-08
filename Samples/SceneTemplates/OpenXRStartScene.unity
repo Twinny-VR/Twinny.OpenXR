@@ -308,6 +308,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6440136219351727718, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
   m_PrefabInstance: {fileID: 206592589}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &206592591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5719472355882196184, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
+  m_PrefabInstance: {fileID: 206592589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &272169555 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3469265049014954633, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
@@ -324,17 +329,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8314303522893266427, guid: 3d20560a7d9b29143901cadd6db5cee9, type: 3}
   m_PrefabInstance: {fileID: 820744372}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &475870225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3469265049014954633, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
-  m_PrefabInstance: {fileID: 1820552011}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2319c18b7987b6c41b0e502b279ad84b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Twinny.OpenXR::Twinny.UI.ButtonActionXR
 --- !u!1 &674370383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,27 +1043,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 475870225}
+      objectReference: {fileID: 206592591}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnRelease
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Twinny.UI.ButtonActionXR, Twinny.OpenXR
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7321856189545173065, guid: c88a3ff1797025c47b4f087d9f8e7160, type: 3}
       propertyPath: _whenRelease.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
