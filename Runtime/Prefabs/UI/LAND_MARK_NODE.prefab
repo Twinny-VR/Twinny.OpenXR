@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3909232839482471921}
-  - component: {fileID: -697854866005403602}
+  - component: {fileID: 7438942868324545593}
   m_Layer: 0
   m_Name: LAND_MARK_NODE
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-697854866005403602
+--- !u!114 &7438942868324545593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6775246184948749936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9bb30d0eefce4a4aa900dc650d9b769, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c105acb0570383468bf5e01738ba27c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Twinny.OpenXR::Twinny.XR.Navigation.LandMarkNode
+  changeParent: {fileID: 0}
+  north: {fileID: 0}
+  south: {fileID: 0}
+  east: {fileID: 0}
+  west: {fileID: 0}
+  OnLandMarkSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLandMarkUnselected:
+    m_PersistentCalls:
+      m_Calls: []
+  m_locomotionHandlerBehaviour: {fileID: 0}
