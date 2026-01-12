@@ -443,6 +443,8 @@ namespace Twinny.XR
 
         public void DockScene()
         {
+            if (!this || !gameObject) return;
+
 #if !UNITY_EDITOR
             if (AnchorManager.currentAnchor == null) return;
             OVRSpatialAnchor anchor = gameObject.GetComponent<OVRSpatialAnchor>();
@@ -452,6 +454,8 @@ namespace Twinny.XR
         }
         public void UndockScene()
         {
+            if (!this || !gameObject) return;
+
 #if !UNITY_EDITOR
             if (AnchorManager.currentAnchor == null) return;
             OVRSpatialAnchor anchor = gameObject.GetComponent<OVRSpatialAnchor>();

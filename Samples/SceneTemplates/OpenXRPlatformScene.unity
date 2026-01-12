@@ -46473,18 +46473,6 @@ PrefabInstance:
       value: PassthroughFaderUnderlay
       objectReference: {fileID: 0}
     - target: {fileID: 3772499826509522906, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.18837
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772499826509522906, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772499826509522906, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.30436
-      objectReference: {fileID: 0}
-    - target: {fileID: 3772499826509522906, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -46515,6 +46503,10 @@ PrefabInstance:
     - target: {fileID: 6477118598607682069, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
       propertyPath: fadeSpeed
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6477118598607682069, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
+      propertyPath: defaultFadeSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6477118598607682069, guid: 925bf331e22e60d46a7c89d694a403dc, type: 3}
       propertyPath: m_passthroughViewingMode
