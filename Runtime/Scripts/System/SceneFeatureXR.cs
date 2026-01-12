@@ -61,7 +61,7 @@ namespace Twinny.XR
 #endif
         private void OnEnable()
         {
-                CallbackHub.RegisterCallback<ITwinnyXRCallbacks>(this);
+            CallbackHub.RegisterCallback<ITwinnyXRCallbacks>(this);
         }
 
 
@@ -170,12 +170,12 @@ namespace Twinny.XR
                 _currentLandMark = landMarks[landMarkIndex];
                 var node = _currentLandMark.node;
 
-                    //Debug.LogWarning($"MERDA ANCH:{AnchorManager.currentAnchor.transform.position} SA:{AnchorManager.position} PRNT:{worldTransform.parent.position} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
-                    
-                    worldTransform.position = m_anchorStartPosition;
-                    worldTransform.localPosition = Vector3.zero;
-                    worldTransform.rotation = AnchorManager.rotation;
-                    worldTransform.localRotation = Quaternion.identity;
+                //Debug.LogWarning($"MERDA ANCH:{AnchorManager.currentAnchor.transform.position} SA:{AnchorManager.position} PRNT:{worldTransform.parent.position} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
+
+                worldTransform.position = m_anchorStartPosition;
+                worldTransform.localPosition = Vector3.zero;
+                worldTransform.rotation = AnchorManager.rotation;
+                worldTransform.localRotation = Quaternion.identity;
                 if (node.changeParent != null)
                 {
                     Transform centerEye = Camera.main.transform;
@@ -183,12 +183,12 @@ namespace Twinny.XR
                     hmdOffset.y = centerEye.position.y;
                     Vector3 desiredPosition = -_currentLandMark.node.transform.position - hmdOffset;
                     worldTransform.localPosition = desiredPosition;
-                   // cameraRig.SetParent(node.changeParent);
+                    // cameraRig.SetParent(node.changeParent);
                 }
                 else
                 {
 
-                    Transform relative = worldTransform.parent; 
+                    Transform relative = worldTransform.parent;
                     float nodeYaw = GetYawRelativeToParent(node.transform, relative);
 
                     worldTransform.localRotation = Quaternion.Euler(0f, -nodeYaw, 0f);
@@ -197,12 +197,13 @@ namespace Twinny.XR
                     Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
                     bool trackingDirty = (AnchorManager.position - m_anchorStartPosition).sqrMagnitude > 0.0001f;
 
-                    if (trackingDirty) {
-                    Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
+                    if (trackingDirty)
+                    {
+                        Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
 
-                    Vector3 trackingDeltaLocal = relative.InverseTransformVector(trackingDeltaWorld);
+                        Vector3 trackingDeltaLocal = relative.InverseTransformVector(trackingDeltaWorld);
                         desiredPosition -= trackingDeltaLocal;
-                   
+
                     }
                     worldTransform.localPosition = desiredPosition;
                     //Debug.LogWarning($"MERDA YAW:{nodeYaw} NLP:{nodeLocalPos} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
@@ -215,7 +216,7 @@ namespace Twinny.XR
                     cameraRig.position = Vector3.zero;
                     cameraRig.rotation = Quaternion.identity;
                 }
-                    node?.OnLandMarkSelected?.Invoke();
+                node?.OnLandMarkSelected?.Invoke();
             }
             else
             {
@@ -228,10 +229,12 @@ namespace Twinny.XR
             }
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleportToLandMark(landMarkIndex));
 
-            Debug.LogWarning($"[AnchorManager][LandMark] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
-                $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º");
-
-             AnchorScene();
+            if (worldTransform != null)
+            {
+                Debug.LogWarning($"[AnchorManager][LandMark] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
+                    $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º");
+                AnchorScene();
+            }
 
         }
 

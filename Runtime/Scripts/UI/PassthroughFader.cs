@@ -118,7 +118,7 @@ namespace Twinny.XR
 
             SetupPassthrough();
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             CheckIfPassthroughIsRecommended();
 #endif
         }
