@@ -17,7 +17,7 @@ MonoBehaviour:
   description: A scene that work with Twinny Engine OpenXR Module
   preview: {fileID: 2800000, guid: 94d720b4bf013c14d97f8cc70d39a85f, type: 3}
   dependencies:
-  - dependency: {fileID: 2100000, guid: 0f42ca4a9706faf49aa073954f4b41ea, type: 2}
+  - dependency: {fileID: 2100000, guid: 43729c7a8f06e4769ba11eac897f7c18, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 919132149155446097, guid: fc0fd19b38dfb6a4ba0336bf7b518c8e, type: 3}
     instantiationMode: 0
@@ -35,9 +35,11 @@ MonoBehaviour:
     instantiationMode: 1
   - dependency: {fileID: 2800000, guid: 2fd6421f253b4ef1a19526541f9ffc0c, type: 3}
     instantiationMode: 1
-  - dependency: {fileID: 2100000, guid: 53d7b51a76eae92499f850ffcad17189, type: 2}
+  - dependency: {fileID: 919132149155446097, guid: 4d049a78292933d4486044df0d04dd42, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 6071739367207766788, guid: 066a78556d8569e4f9cb128609d4128a, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: 53d7b51a76eae92499f850ffcad17189, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 2100000, guid: 099a76900c67577498a4e81d119935d6, type: 2}
     instantiationMode: 0
@@ -78,8 +80,6 @@ MonoBehaviour:
   - dependency: {fileID: 9100000, guid: ef1b9ef41583f9d408543160ab81a726, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 2100000, guid: aa5589ae92941fd429fb575bbed59520, type: 2}
-    instantiationMode: 0
-  - dependency: {fileID: 2100000, guid: 831769f8daa7ad6489ccf764d1a2274c, type: 2}
     instantiationMode: 0
   - dependency: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     instantiationMode: 1

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugVisual: {fileID: 4245279888031358441}
+  _displayText: 
   _showInfo: 1
   _debugInfo: {fileID: 1588519700610495203}
   TMP_Info: {fileID: 4001378391498386605}
@@ -95,6 +96,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2130001443870965871, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415795980995962898, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
+      propertyPath: m_text
+      value: '<b><color=#0F0>[SpatialAnchorDebug]</color></b>
+
+        P:(0.0,0.0,0.0)
+
+        R:(0.0,0.0,0.0)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415795980995962898, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
+      propertyPath: m_fontSize
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415795980995962898, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415795980995962898, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
+      propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3236718447782254934, guid: 11c2bda146e74d64fb438292e0070853, type: 3}
