@@ -52,6 +52,7 @@ namespace Twinny.UI
 
         public void SetDebugVisual(bool status)
         {
+            if(string.IsNullOrEmpty(_displayText)) _displayText = transform.parent.name;
             _debugVisual?.SetActive(status);
             _transform = transform;
             _debugInfo?.SetActive(_showInfo);

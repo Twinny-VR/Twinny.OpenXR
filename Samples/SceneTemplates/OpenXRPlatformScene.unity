@@ -4713,7 +4713,7 @@ GameObject:
   - component: {fileID: 180018142}
   - component: {fileID: 180018141}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Prisma
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15799,7 +15799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7429461506843892805, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7429461506843892805, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_LocalPosition.z
