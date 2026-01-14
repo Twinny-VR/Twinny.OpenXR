@@ -85,13 +85,15 @@ namespace Twinny.XR
             PassthroughFader.TogglePassthroughAction(sceneType == SceneType.MR, 100f);
 
             AnchorScene();
+/*
             Debug.LogWarning($"[SceneFeature] RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
                 $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
                 $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
                 $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
                 $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
                 $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
-                          );
+                );
+*/                       
 
             m_anchorStartPosition = AnchorManager.position;
 
@@ -169,8 +171,9 @@ namespace Twinny.XR
         /// <param name="landMarkIndex">Index on landMarks array.</param>
         public override void TeleportToLandMark(int landMarkIndex)
         {
+            if (worldTransform == null) return;
+
             Transform cameraRig = TwinnyXRManager.cameraRigTransform.transform;
-            SetupHDRI(landMarkIndex);
             UndockScene();
             if (landMarks.Length > 0 && landMarkIndex >= 0)
             {
@@ -223,7 +226,6 @@ namespace Twinny.XR
                     //Debug.LogWarning($"MERDA YAW:{nodeYaw} NLP:{nodeLocalPos} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
                     //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
 
-                    SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
                     cameraRig.SetParent(null);
                     var activeScene = SceneManager.GetSceneByBuildIndex(0);
                     SceneManager.MoveGameObjectToScene(cameraRig.gameObject, activeScene);
@@ -249,95 +251,12 @@ namespace Twinny.XR
             }
 
 
-            Debug.LogWarning($"[SceneFeature] OnTeleport RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
-                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
-                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
-                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
-                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
-                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
-                          );
-
-        }
-        public void TeleportToLandMark_WORKING(int landMarkIndex)
-        {
-            Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
             SetupHDRI(landMarkIndex);
-            UndockScene();
-            if (landMarks.Length > 0 && landMarkIndex >= 0)
-            {
-                // cameraRig.position = new Vector3(Camera.main.transform.position.x,cameraRig.position.y,Camera.main.transform.position.z);
-                if (_currentLandMark != null) _currentLandMark.node?.OnLandMarkUnselected?.Invoke();
-                _currentLandMark = landMarks[landMarkIndex];
-                var node = _currentLandMark.node;
 
-                //Debug.LogWarning($"MERDA ANCH:{AnchorManager.currentAnchor.transform.position} SA:{AnchorManager.position} PRNT:{worldTransform.parent.position} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
+            RecenterSkyBox();
 
-                worldTransform.position = m_anchorStartPosition;
-                worldTransform.localPosition = Vector3.zero;
-                worldTransform.rotation = AnchorManager.rotation;
-                worldTransform.localRotation = Quaternion.identity;
-                if (node.changeParent != null)
-                {
-                    Transform centerEye = Camera.main.transform;
-                    var hmdOffset = centerEye.position - cameraRig.position;
-                    hmdOffset.y = centerEye.position.y;
-                    Vector3 desiredPosition = -_currentLandMark.node.transform.position - hmdOffset;
-                    worldTransform.localPosition = desiredPosition;
-                    // cameraRig.SetParent(node.changeParent);
-                }
-                else
-                {
-
-                    Transform relative = worldTransform.parent;
-                    float nodeYaw = GetYawRelativeToParent(node.transform, relative);
-
-                    worldTransform.localRotation = Quaternion.Euler(0f, -nodeYaw, 0f);
-
-                    Vector3 nodeLocalPos = relative.InverseTransformPoint(node.transform.position);
-                    Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
-                    bool trackingDirty = (AnchorManager.position - m_anchorStartPosition).sqrMagnitude > 0.0001f;
-
-                    if (trackingDirty)
-                    {
-                        Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
-
-                        Vector3 trackingDeltaLocal = relative.InverseTransformVector(trackingDeltaWorld);
-                        desiredPosition -= trackingDeltaLocal;
-
-                    }
-                    worldTransform.localPosition = desiredPosition;
-                    //Debug.LogWarning($"MERDA YAW:{nodeYaw} NLP:{nodeLocalPos} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
-                    //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
-
-                    SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
-                    cameraRig.SetParent(null);
-                    var activeScene = SceneManager.GetSceneByBuildIndex(0);
-                    SceneManager.MoveGameObjectToScene(cameraRig.gameObject, activeScene);
-                    cameraRig.position = Vector3.zero;
-                    cameraRig.rotation = Quaternion.identity;
-                }
-                node?.OnLandMarkSelected?.Invoke();
-            }
-            else
-            {
-                _currentLandMark = null;
-                if (worldTransform != null)
-                {
-                    worldTransform.position = AnchorManager.Instance.transform.position;
-                    worldTransform.rotation = AnchorManager.Instance.transform.rotation;
-                }
-            }
-            CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleportToLandMark(landMarkIndex));
-
-            if (worldTransform != null)
-            {
-                Debug.LogWarning($"[AnchorManager][LandMark] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
-                    $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º");
-                AnchorScene();
-            }
 
         }
-
 
         private float GetYawRelativeToParent(Transform node, Transform parent)
         {
@@ -392,15 +311,8 @@ namespace Twinny.XR
 
         public void OnRecenterDetected()
         {
-            Debug.LogWarning($"[SceneFeature] Recenter Detected! RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
-                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
-                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
-                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
-                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
-                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
-                );
             AnchorScene();
-            _ = RecenterSkyBox();
+            RecenterSkyBox();
         }
 
 
@@ -411,11 +323,6 @@ namespace Twinny.XR
 
         private void SetupHDRI(int landMarkIndex)
         {
-
-            //TODO Melhorar o sistema de HDRI
-            //TODO Arrumar ao troca de cena
-
-
             if (landMarkIndex < 0)//If no LandMark to set, reset skybox to Passthroug
             {
                 PassthroughFader.TogglePassthroughAction(true, 100f);
@@ -427,7 +334,7 @@ namespace Twinny.XR
             {
 
                 LandMark landMark = landMarks[landMarkIndex];
-                SetHDRI(landMark.skyBoxMaterial);
+                TwinnyManager.SetHDRI(landMark.skyBoxMaterial);
                 currentLandMark = landMark;
             }
 
@@ -435,33 +342,7 @@ namespace Twinny.XR
 
 
 
-        private async void SetHDRIRotation(float angle)
-        {
-            await Task.Yield();
-            await Task.Yield();
-            if (!RenderSettings.skybox) { Debug.LogWarning("[SceneFeature] Warning! The Skybox Material has not been defined."); return; }
-
-            angle -= currentLandMark.hdriOffsetRotation;
-
-            angle = angle % 360;
-
-            if (angle < 0)
-            {
-                angle += 360;
-            }
-
-            float rotationOffset = 0;
-
-            if (angle > 0)
-                rotationOffset = 360f - angle;
-            else
-                rotationOffset = angle + 360;
-
-
-            rotationOffset = Mathf.Clamp(rotationOffset, 0, 360);
-
-            RenderSettings.skybox.SetFloat("_Rotation", rotationOffset);
-        }
+       
 
         /*
         private void CheckGameMode()
@@ -510,14 +391,17 @@ namespace Twinny.XR
 
 
         }
-        private async Task RecenterSkyBox()
+
+
+        private async void RecenterSkyBox()
         {
             await Task.Yield();
-            // Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
-            SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
+            Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
+            float offset = currentLandMark != null ? currentLandMark.hdriOffsetRotation : 0;
+            TwinnyManager.SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y - offset);
         }
-
         /*
+
         public static void SetPassthrough(bool status)
         {
             Debug.LogWarning("SetPassthrough: " + status);
@@ -668,6 +552,10 @@ namespace Twinny.XR
         {
 
         }
+
+        public void OnSkyboxHDRIChanged(Material material) => RecenterSkyBox();
+
+
         #endregion
 
 

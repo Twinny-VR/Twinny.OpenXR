@@ -1,6 +1,7 @@
 using Concept.Core;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Twinny.Core;
 using Twinny.XR.Anchoring;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Twinny.XR
         [SerializeField] private UnityEvent OnStartTeleportEvent = new UnityEvent();
         [SerializeField] private UnityEvent OnTeleportEvent = new UnityEvent();
         [SerializeField] private UnityEvent OnTeleportToLandMarkEvent = new UnityEvent();
+        [SerializeField] private UnityEvent OnSkyboxHDRIChangedEvent = new UnityEvent();
 
         #endregion
 
@@ -61,7 +63,6 @@ namespace Twinny.XR
 
 
         #region UI Callback Actions
-        public void Test(Dictionary<string, int> values) { }
         public void StartExperience(string sceneName, int buildIndex) => m_gameMode?.StartExperience(sceneName, buildIndex);
         public void RestartExperience() => m_gameMode?.RestartExperience();
 
@@ -77,6 +78,14 @@ namespace Twinny.XR
         public void StartTeleportCallback() => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnStartTeleport());
         public void TeleportCallback() => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleport());
         
+        public void SetHDRI(Material material) => TwinnyManager.SetHDRI(material);
+
+        public async void SetHDRIRotation(float angle)
+        {
+            await Task.Yield();
+            await Task.Yield();
+            TwinnyManager.SetHDRIRotation(angle);
+        }
         #endregion
 
 
@@ -120,6 +129,8 @@ namespace Twinny.XR
 
         public void OnStartTeleport() => OnStartTeleportEvent?.Invoke();
         public void OnTeleport() => OnTeleportEvent?.Invoke();
+        public void OnSkyboxHDRIChanged(Material material) => OnSkyboxHDRIChangedEvent?.Invoke();
+
 
 #if UNITY_EDITOR
         [ContextMenu("Start")]

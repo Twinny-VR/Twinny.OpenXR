@@ -51125,6 +51125,9 @@ MonoBehaviour:
   OnTeleportToLandMarkEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnSkyboxHDRIChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1987354389
 GameObject:
   m_ObjectHideFlags: 0

@@ -474,6 +474,9 @@ namespace Twinny.UI
            // Debug.LogWarning($"[HUDManagerXR] RIG:{rig.position} CanvasRoot:{_canvasRoot.position}");
         }
 
+        public void OnSkyboxHDRIChanged(Material material) { }
+
+
         /*
         public void OnConnected(GameMode gameMode)
         {
