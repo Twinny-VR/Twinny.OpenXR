@@ -41,6 +41,7 @@ namespace Twinny.XR
         {
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
 
+            SceneFeatureXR.Instance?.TeleportToLandMark(0);
 
             if (SceneManager.sceneCount > 1)
                 await UnloadAdditivesScenes();

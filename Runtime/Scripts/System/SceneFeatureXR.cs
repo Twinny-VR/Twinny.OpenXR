@@ -77,7 +77,7 @@ namespace Twinny.XR
                 OVRManager.display.RecenteredPose += OnRecenterDetected;
             }
         }
-        Vector3 m_anchorStartPosition;
+        private Vector3 m_anchorStartPosition;
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -85,6 +85,13 @@ namespace Twinny.XR
             PassthroughFader.TogglePassthroughAction(sceneType == SceneType.MR, 100f);
 
             AnchorScene();
+            Debug.LogWarning($"[SceneFeature] RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
+                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
+                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
+                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
+                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
+                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
+                          );
 
             m_anchorStartPosition = AnchorManager.position;
 
@@ -127,6 +134,7 @@ namespace Twinny.XR
         private void OnDisable()
         {
             CallbackHub.UnregisterCallback<ITwinnyXRCallbacks>(this);
+
             //    NavigationMenu.Instance.SetArrows(null);
         }
 
@@ -147,6 +155,7 @@ namespace Twinny.XR
                 && NetworkRunnerHandler.runner.SessionInfo != null)
                 CallbackHub.CallAction<IUICallBacks>(callback => callback.OnUnloadSceneFeature());
         */
+
         }
 
         #endregion
@@ -160,7 +169,7 @@ namespace Twinny.XR
         /// <param name="landMarkIndex">Index on landMarks array.</param>
         public override void TeleportToLandMark(int landMarkIndex)
         {
-            Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
+            Transform cameraRig = TwinnyXRManager.cameraRigTransform.transform;
             SetupHDRI(landMarkIndex);
             UndockScene();
             if (landMarks.Length > 0 && landMarkIndex >= 0)
@@ -197,7 +206,7 @@ namespace Twinny.XR
                         Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
 
                         trackingDeltaLocal = worldTransform.parent.InverseTransformVector(trackingDeltaWorld);
-                       // trackingDeltaLocal = worldRotation * trackingDeltaLocal;
+                        // trackingDeltaLocal = worldRotation * trackingDeltaLocal;
 
                     }
 
@@ -236,13 +245,20 @@ namespace Twinny.XR
 
             if (worldTransform != null)
             {
-                Debug.LogWarning($"[AnchorManager][LandMark] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
-                    $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º");
                 AnchorScene();
             }
 
+
+            Debug.LogWarning($"[SceneFeature] OnTeleport RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
+                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
+                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
+                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
+                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
+                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
+                          );
+
         }
-         public void TeleportToLandMark_WORKING(int landMarkIndex)
+        public void TeleportToLandMark_WORKING(int landMarkIndex)
         {
             Transform cameraRig = GameObject.FindAnyObjectByType<OVRCameraRig>().transform;
             SetupHDRI(landMarkIndex);
@@ -376,6 +392,14 @@ namespace Twinny.XR
 
         public void OnRecenterDetected()
         {
+            Debug.LogWarning($"[SceneFeature] Recenter Detected! RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
+                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
+                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
+                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
+                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
+                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
+                );
+            AnchorScene();
             _ = RecenterSkyBox();
         }
 
@@ -416,7 +440,6 @@ namespace Twinny.XR
             await Task.Yield();
             await Task.Yield();
             if (!RenderSettings.skybox) { Debug.LogWarning("[SceneFeature] Warning! The Skybox Material has not been defined."); return; }
-            Debug.LogWarning($"[SceneFeatureXR] SetHDRIRotation: {angle}°");
 
             angle -= currentLandMark.hdriOffsetRotation;
 
@@ -490,7 +513,7 @@ namespace Twinny.XR
         private async Task RecenterSkyBox()
         {
             await Task.Yield();
-            Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
+            // Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
             SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y);
         }
 
@@ -534,8 +557,6 @@ namespace Twinny.XR
             UndockScene();
             transform.position = AnchorManager.position;
             transform.rotation = AnchorManager.rotation;
-            Debug.LogWarning($"[SceneFeature] Game Mode: {GameMode.currentMode}");
-            Debug.LogWarning($"[SceneFeature] Scene Type: {sceneType}");
             // if (sceneType == SceneType.VR && GameMode.currentMode is TwinnyXRSingleplayer) return;
 #if !UNITY_EDITOR
              DockScene();

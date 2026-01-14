@@ -37,7 +37,6 @@ namespace Twinny.UI
             if (!_pointable)
                 _pointable = GetComponent<PointableUnityEventWrapper>();
             _pointable.WhenRelease.AddListener(OnRelease);
-            Debug.LogWarning($"[ButtonAction] {name} ENABLED");
         }
 
         private void OnDisable()
@@ -51,7 +50,7 @@ namespace Twinny.UI
         public void OnRelease() => OnRelease(default);
         public void OnRelease(PointerEvent evt)
         {
-            Debug.LogWarning($"[ButtonAction] {name} ON RELEASE ({evt.EventId})");
+            //Debug.LogWarning($"[ButtonAction] {name} ON RELEASE ({evt.EventId})");
             
 
             //TODO Criar um sistema de configurações
@@ -81,7 +80,6 @@ namespace Twinny.UI
                     ActionManager.CallAction(parameter);
                     break;
                 case ButtonType.ANCHORING:
-                    Debug.LogWarning("[ButtonAction] ANCHORING");
                     AnchorManager.HandleAnchorPlacement();
                     break;
                 case ButtonType.PASSTHROUGH:

@@ -188,7 +188,7 @@ namespace Twinny.XR.Anchoring
         /// <param name="status">Is handling switch.</param>
         public static void HandleAnchorPlacement()
         {
-            Debug.LogWarning($"[AnchorManager] HandleAnchorPlacement ({Instance._state})");
+            //Debug.LogWarning($"[AnchorManager] HandleAnchorPlacement ({Instance._state})");
             if (Instance._state == StateAnchorManager.DISABLED || Instance._state == StateAnchorManager.ANCHORED)
             {
                 Instance._state = StateAnchorManager.ANCHORING;
@@ -225,7 +225,7 @@ namespace Twinny.XR.Anchoring
             {
                 Destroy(Instance._colocation);
                 await Task.Delay(500);
-                Debug.LogWarning("[AnchorManager] Colocation retargeting.");
+                //Debug.LogWarning("[AnchorManager] Colocation retargeting.");
                 SpawnColocation();
                 //LevelManager.CallDelayedAction(() =>{}, .5f);
             }
@@ -318,7 +318,7 @@ namespace Twinny.XR.Anchoring
             PlaceSafeArea(anchor.transform.position, Quaternion.Euler(0, anchor.transform.rotation.eulerAngles.y, 0), anchor.transform);
             if (Instance != null)
                 Instance._currentAnchor = anchor;
-            Debug.LogWarning($"[AnchorManager] ANCHOR: {anchor.transform.position}");
+           // Debug.LogWarning($"[AnchorManager] ANCHOR: {anchor.transform.position}");
         }
         public static void PlaceSafeArea(Vector3 position, Quaternion rotation) => PlaceSafeArea(position, rotation, null);
         public static void PlaceSafeArea(Vector3 position, Quaternion rotation, Transform parent)
@@ -333,16 +333,19 @@ namespace Twinny.XR.Anchoring
             Instance._transform.SetPositionAndRotation(position, rotation);
             //Instance._transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             Instance._transform.SetParent(parent);
-            Debug.LogWarning($"[AnchorManager] SAFE: {Instance._transform.position}");
-            Debug.LogWarning($"[AnchorManager] RIG: {Instance._cameraRig.position} {Instance._cameraRig.eulerAngles.y}º CAM: {Camera.main.transform.position}");
+           // Debug.LogWarning($"[AnchorManager] SAFE: {Instance._transform.position}");
+            //Debug.LogWarning($"[AnchorManager] RIG: {Instance._cameraRig.position} {Instance._cameraRig.eulerAngles.y}º CAM: {Camera.main.transform.position}");
         }
 
         public static void ResetSafeArea() => PlaceSafeArea(currentAnchor);
         public static void UpdateSafeArea()
         {
             var worldTransform = (SceneFeatureXR.Instance as SceneFeatureXR).worldTransform;
+            /*
             Debug.LogWarning($"[AnchorManager][Teleport] WORLD: {worldTransform.position} {worldTransform.rotation.eulerAngles.y}º" +
-                $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º"); if (Instance == null)
+                $" LOCAL: {worldTransform.localPosition} {worldTransform.localRotation.eulerAngles.y}º"); 
+            */
+            if (Instance == null)
             {
                 Debug.LogError("[AnchorManager] Instace not found!");
                 return;

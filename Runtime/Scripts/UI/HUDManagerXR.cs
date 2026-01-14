@@ -471,7 +471,7 @@ namespace Twinny.UI
             newPos.y = 0;
             rig.position = newPos;
 
-            Debug.LogWarning($"[HUDManagerXR] RIG:{rig.position} CanvasRoot:{_canvasRoot.position}");
+           // Debug.LogWarning($"[HUDManagerXR] RIG:{rig.position} CanvasRoot:{_canvasRoot.position}");
         }
 
         /*
