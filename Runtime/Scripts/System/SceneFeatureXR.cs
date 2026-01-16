@@ -85,15 +85,15 @@ namespace Twinny.XR
             PassthroughFader.TogglePassthroughAction(sceneType == SceneType.MR, 100f);
 
             AnchorScene();
-/*
-            Debug.LogWarning($"[SceneFeature] RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
-                $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
-                $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
-                $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
-                $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
-                $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
-                );
-*/                       
+            /*
+                        Debug.LogWarning($"[SceneFeature] RIG:{TwinnyXRManager.cameraRigTransform.position} {(int)TwinnyXRManager.cameraRigTransform.eulerAngles.y}º " +
+                            $"SAFE: {AnchorManager.position} {(int)AnchorManager.rotation.eulerAngles.y}º " +
+                            $"ANCH:{AnchorManager.currentAnchor.transform.position} {(int)AnchorManager.currentAnchor.transform.eulerAngles.y}º " +
+                            $"THIS:{transform.position} {(int)transform.eulerAngles.y}º" +
+                            $"WRLD:{worldTransform.position} {(int)worldTransform.eulerAngles.y}º" +
+                            $"LWRLD:{worldTransform.localPosition} {(int)worldTransform.localEulerAngles.y}º"
+                            );
+            */
 
             m_anchorStartPosition = AnchorManager.position;
 
@@ -178,7 +178,7 @@ namespace Twinny.XR
             if (landMarks.Length > 0 && landMarkIndex >= 0)
             {
                 // cameraRig.position = new Vector3(Camera.main.transform.position.x,cameraRig.position.y,Camera.main.transform.position.z);
-                if (_currentLandMark != null) _currentLandMark.node?.OnLandMarkUnselected?.Invoke();
+                if (_currentLandMark != null) _currentLandMark.node?.Unselect();
                 _currentLandMark = landMarks[landMarkIndex];
                 var node = _currentLandMark.node;
 
@@ -188,51 +188,37 @@ namespace Twinny.XR
                 worldTransform.localPosition = Vector3.zero;
                 worldTransform.rotation = AnchorManager.rotation;
                 worldTransform.localRotation = Quaternion.identity;
-                if (node.changeParent != null)
+                Vector3 nodeLocalPos = worldTransform.parent.InverseTransformPoint(node.transform.position);
+                //Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
+                Vector3 trackingDeltaLocal = Vector3.zero;
+                bool trackingDirty = (AnchorManager.position - m_anchorStartPosition).sqrMagnitude > 0.0001f;
+
+                if (trackingDirty)
                 {
-                    Transform centerEye = Camera.main.transform;
-                    var hmdOffset = centerEye.position - cameraRig.position;
-                    hmdOffset.y = centerEye.position.y;
-                    Vector3 desiredPosition = -node.transform.position - hmdOffset;
-                    worldTransform.localPosition = desiredPosition;
-                    // cameraRig.SetParent(node.changeParent);
+                    Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
+
+                    trackingDeltaLocal = worldTransform.parent.InverseTransformVector(trackingDeltaWorld);
+                    // trackingDeltaLocal = worldRotation * trackingDeltaLocal;
+
                 }
-                else
-                {
-                    Vector3 nodeLocalPos = worldTransform.parent.InverseTransformPoint(node.transform.position);
-                    //Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
-                    Vector3 trackingDeltaLocal = Vector3.zero;
-                    bool trackingDirty = (AnchorManager.position - m_anchorStartPosition).sqrMagnitude > 0.0001f;
 
-                    if (trackingDirty)
-                    {
-                        Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
-
-                        trackingDeltaLocal = worldTransform.parent.InverseTransformVector(trackingDeltaWorld);
-                        // trackingDeltaLocal = worldRotation * trackingDeltaLocal;
-
-                    }
-
-                    float nodeYaw = GetYawRelativeToParent(node.transform, worldTransform.parent);
-                    Quaternion invNodeYaw = Quaternion.Euler(0f, -nodeYaw, 0f);
+                float nodeYaw = GetYawRelativeToParent(node.transform, worldTransform.parent);
+                Quaternion invNodeYaw = Quaternion.Euler(0f, -nodeYaw, 0f);
 
 
 
-                    Vector3 desiredPosition = -(invNodeYaw * nodeLocalPos) - trackingDeltaLocal;
+                Vector3 desiredPosition = -(invNodeYaw * nodeLocalPos) - trackingDeltaLocal;
 
-                    worldTransform.localRotation = invNodeYaw;
-                    worldTransform.localPosition = desiredPosition;
+                worldTransform.localRotation = invNodeYaw;
+                worldTransform.localPosition = desiredPosition;
 
-                    //Debug.LogWarning($"MERDA YAW:{nodeYaw} NLP:{nodeLocalPos} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
-                    //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
+                //Debug.LogWarning($"MERDA YAW:{nodeYaw} NLP:{nodeLocalPos} WP:{worldTransform.position} WLP:{worldTransform.localPosition}");
+                //   NavigationMenu.Instance?.SetArrows(enableNavigationMenu ? _currentLandMark.node : null);
 
-                    cameraRig.SetParent(null);
-                    var activeScene = SceneManager.GetSceneByBuildIndex(0);
-                    SceneManager.MoveGameObjectToScene(cameraRig.gameObject, activeScene);
                     cameraRig.position = Vector3.zero;
                     cameraRig.rotation = Quaternion.identity;
-                }
-                node?.OnLandMarkSelected?.Invoke();
+
+                node?.Select();
             }
             else
             {
@@ -342,7 +328,7 @@ namespace Twinny.XR
 
 
 
-       
+
 
         /*
         private void CheckGameMode()
@@ -396,7 +382,7 @@ namespace Twinny.XR
         private async void RecenterSkyBox()
         {
             await Task.Yield();
-            Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
+           // Debug.LogWarning("[SceneFeatureXR] RecenterSkyBox: " + worldTransform.localRotation.eulerAngles);
             float offset = currentLandMark != null ? currentLandMark.hdriOffsetRotation : 0;
             TwinnyManager.SetHDRIRotation(worldTransform.localRotation.eulerAngles.y + transform.rotation.eulerAngles.y - offset);
         }

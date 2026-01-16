@@ -3,6 +3,7 @@ using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Twinny.Core;
+using Twinny.UI;
 using Twinny.XR.Anchoring;
 using UnityEngine;
 using UnityEngine.Events;
@@ -78,6 +79,14 @@ namespace Twinny.XR
         public void StartTeleportCallback() => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnStartTeleport());
         public void TeleportCallback() => CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleport());
         
+        public async void ChangeHDRI(Material material)
+        {
+            await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
+            TwinnyManager.SetHDRI(material);
+            await CanvasTransition.FadeScreenAsync(false, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
+
+        }
+
         public void SetHDRI(Material material) => TwinnyManager.SetHDRI(material);
 
         public async void SetHDRIRotation(float angle)

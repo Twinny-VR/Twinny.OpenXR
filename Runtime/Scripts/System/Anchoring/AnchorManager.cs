@@ -144,8 +144,8 @@ namespace Twinny.XR.Anchoring
             _spatialAnchorCore.OnAnchorCreateCompleted.AddListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.AddListener(OnAnchorEraseCompleted);
             //Set callbacks delegates
-            GestureMonitor.Instance.OnPinchLeft += OnPinchLeft;
-            GestureMonitor.Instance.OnPinchRight += OnPinchRight;
+            GestureMonitor.OnPinchLeftEvent.AddListener(OnPinchLeft);
+            GestureMonitor.OnPinchRightEvent.AddListener(OnPinchRight);
 
             _spatialAnchorLoader.LoadAnchorsFromDefaultLocalStorage();
 

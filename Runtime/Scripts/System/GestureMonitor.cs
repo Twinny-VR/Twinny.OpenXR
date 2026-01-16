@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Concept.Core;
 using Concept.Helpers;
 using Oculus.Interaction.HandGrab;
@@ -5,6 +6,8 @@ using Twinny.Helpers;
 using Twinny.UI;
 using Twinny.XR.Interactables;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 
 namespace Twinny.XR
@@ -37,24 +40,28 @@ namespace Twinny.XR
 
         [SerializeField] private GameObject m_handForwardGestureRight;
 
+
+
         #endregion
 
-        #region Delegates
-        public delegate void onPinchLeft();
-        public onPinchLeft OnPinchLeft;
-        public delegate void onPinchRight();
-        public onPinchRight OnPinchRight;
-        public delegate void onGrabbing(bool status);
-        public onGrabbing OnGrabbing;
+        #region Events
+        public static UnityEvent OnPinchLeftEvent = new UnityEvent();
+        public static UnityEvent OnPinchRightEvent = new UnityEvent();
+        public static UnityEvent<bool> OnGrabbingEvent = new UnityEvent<bool>();
+        public static UnityEvent OnMenuPressedEvent = new UnityEvent();
         #endregion
 
         #region MonoBehaviour Methods
-
-
+        private void OnEnable()
+        {
+        }
+        private void OnDisable()
+        {
+        }
         protected override void Start()
         {
             base.Start();
-            OnGrabbing += OnGrabbingCallBack;
+            OnGrabbingEvent.AddListener(OnGrabbingCallBack);
 
             _camera = Camera.main;
             FindHands();
@@ -75,13 +82,17 @@ namespace Twinny.XR
             if (!_leftHand || !_rightHand) return;
 
             if (IsPinching(_leftHand, ref _wasPinchingLeft)) { 
-                OnPinchLeft?.Invoke();
+                OnPinchLeftEvent?.Invoke();
 
                 if (DebugPanel.Instance != null) DebugPanel.Instance.SetFold();
             }
-            if (IsPinching(_rightHand, ref _wasPinchingRight))  OnPinchRight?.Invoke(); 
+            if (IsPinching(_rightHand, ref _wasPinchingRight))  OnPinchRightEvent?.Invoke();
             
-            OnGrabbing(_handGrabInteractorLeft.IsGrabbing || _handGrabInteractorRight.IsGrabbing);
+
+            if (OVRInput.GetDown(OVRInput.Button.Start))
+                OnMenuPressedEvent?.Invoke();
+
+            OnGrabbingEvent?.Invoke(_handGrabInteractorLeft.IsGrabbing || _handGrabInteractorRight.IsGrabbing);
         }
         #endregion
 
@@ -225,9 +236,6 @@ namespace Twinny.XR
 
             return false;
         }
-
-
-
         private void TraceInteractables()
         {
             RaycastHit hit;
@@ -274,6 +282,8 @@ namespace Twinny.XR
 
             }
         }
+
+
         #endregion
 
         #region CallBacks

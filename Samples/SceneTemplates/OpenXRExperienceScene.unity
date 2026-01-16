@@ -1106,7 +1106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetHDRI
+      value: ChangeHDRI
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2613,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetHDRI
+      value: ChangeHDRI
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -3677,7 +3677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetHDRI
+      value: ChangeHDRI
       objectReference: {fileID: 0}
     - target: {fileID: 4222486714129446447, guid: c0f3a3bd879eb0f47b8982db8f120811, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

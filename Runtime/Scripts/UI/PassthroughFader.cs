@@ -16,6 +16,24 @@ namespace Twinny.XR
     [MetaCodeSample("MRMotifs-PassthroughTransitioning")]
     public class PassthroughFader : TSingleton<PassthroughFader>
     {
+
+
+        [SerializeField]
+        private AnimationCurve m_setPassthroughCurve = new AnimationCurve(
+            new Keyframe(0f, 0f, 5f, 5f), // Strong initial kick to avoid perceived delay (fast visual response)
+            new Keyframe(0.30f, 0.40f, 1.5f, 1.5f), // Rapid early visibility: ~40% visual response at 30% of the time
+            new Keyframe(0.70f, 0.85f, 0.5f, 0.5f), // Perceptual smoothing zone (most visible region)
+            new Keyframe(1f, 1f, 0f, 0f) // Linear finish to avoid end slowdown perception
+        );
+
+        [SerializeField]
+        private AnimationCurve m_setSkyboxCurve = new AnimationCurve(
+            new Keyframe(0f, 0f, 1f, 0f),     // slowly start
+            new Keyframe(0.7f, 0.85f, 0f, 0.5f),
+            new Keyframe(1f, 1f, 0.5f, 0f)    // almost linear finish
+        );
+
+
         /// <summary>
         /// The direction in which the fade effect will occur.
         /// </summary>
@@ -262,13 +280,70 @@ namespace Twinny.XR
         /// </summary>
         private IEnumerator FadeToTarget()
         {
-            var currentAlpha = m_material.GetFloat(s_invertedAlpha);
-                while (Mathf.Abs(currentAlpha - m_targetAlpha) > FADE_TOLERANCE)
+            float startAlpha = m_material.GetFloat(s_invertedAlpha);
+            float endAlpha = m_targetAlpha;
+
+            bool goingToMR = endAlpha > startAlpha;
+            AnimationCurve curve = goingToMR ? m_setPassthroughCurve : m_setSkyboxCurve;
+
+            float t = 0f;
+
+            while (t < 1f)
+            {
+                t += Time.deltaTime * m_fadeSpeed;
+
+                float perceptualT = curve.Evaluate(t);
+                float alpha = Mathf.Lerp(startAlpha, endAlpha, perceptualT);
+
+                m_material.SetFloat(s_invertedAlpha, alpha);
+                yield return null;
+            }
+
+            m_material.SetFloat(s_invertedAlpha, endAlpha);
+
+            FinalizeFade();
+        }
+
+        private void FinalizeFade()
+        {
+            if (Mathf.Approximately(m_targetAlpha, 1f))
+            {
+                if (m_passthroughViewingMode == PassthroughViewingMode.Underlay)
                 {
-                    currentAlpha = Mathf.MoveTowards(currentAlpha, m_targetAlpha, m_fadeSpeed * Time.deltaTime);
-                    m_material.SetFloat(s_invertedAlpha, currentAlpha);
-                    yield return null;
+                    m_mainCamera.clearFlags = CameraClearFlags.SolidColor;
+                    m_mainCamera.backgroundColor = Color.clear;
+                    CallbackHub.CallAction<ITwinnyXRCallbacks>(cb => cb.OnSetPassthrough(true));
                 }
+
+                onFadeInComplete?.Invoke();
+            }
+            else
+            {
+                m_oVRPassthroughLayer.enabled = false;
+
+                if (m_passthroughViewingMode == PassthroughViewingMode.Underlay)
+                {
+                    m_mainCamera.clearFlags = CameraClearFlags.Skybox;
+                    m_mainCamera.backgroundColor = m_skyboxBackgroundColor;
+                    CallbackHub.CallAction<ITwinnyXRCallbacks>(cb => cb.OnSetPassthrough(false));
+                }
+
+                onFadeOutComplete?.Invoke();
+            }
+
+            m_meshRenderer.enabled = (m_passthroughViewingMode != PassthroughViewingMode.Underlay);
+        }
+
+
+        private IEnumerator FadeToTargetOLD()
+        {
+            var currentAlpha = m_material.GetFloat(s_invertedAlpha);
+            while (Mathf.Abs(currentAlpha - m_targetAlpha) > FADE_TOLERANCE)
+            {
+                currentAlpha = Mathf.MoveTowards(currentAlpha, m_targetAlpha, m_fadeSpeed * Time.deltaTime);
+                m_material.SetFloat(s_invertedAlpha, currentAlpha);
+                yield return null;
+            }
 
             if (Mathf.Abs(m_targetAlpha - 1f) < FADE_TOLERANCE)
             {
@@ -298,5 +373,10 @@ namespace Twinny.XR
 
             m_meshRenderer.enabled = (m_passthroughViewingMode != PassthroughViewingMode.Underlay);
         }
+
+
+
+
+
     }
 }

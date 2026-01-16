@@ -2,13 +2,18 @@ using System;
 using Oculus.Interaction.Locomotion;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 
 namespace Twinny.XR.Navigation
 {
     public class LandMarkNode : MonoBehaviour
     {
-        public Transform changeParent;
+        public Transform followTarget;
+
+        private bool m_selected;
+
+        private Transform m_cameraRig;
 
         [Header("NAVIGATION")]
         public LandMarkNode north;
@@ -25,29 +30,35 @@ namespace Twinny.XR.Navigation
         {
         }
 
+        private void Start()
+        {
+            m_cameraRig = TwinnyXRManager.cameraRigTransform.transform;
+
+        }
+
+        private void Update()
+        {
+            if (m_selected && followTarget != null) FollowTarget();
+        }
+
+
         public void Select()
         {
-            if (TwinnyXRManager.locomotor == null) return;
-
-            Debug.LogWarning("[LandMarkNode] TEM CARBURADOR!");
-
-            Pose targetPose = new Pose(transform.position,Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
-
-            LocomotionEvent evt = new LocomotionEvent(
-                0,
-                targetPose,
-                LocomotionEvent.TranslationType.Absolute,
-                LocomotionEvent.RotationType.Absolute
-            );
-
-            TwinnyXRManager.locomotor.enabled = false;
-            TwinnyXRManager.locomotor.HandleLocomotionEvent( evt );
-            TwinnyXRManager.locomotor.enabled = true;
+            m_selected = true;
             OnLandMarkSelected?.Invoke();
         }
         public void Unselect()
         {
+            m_selected = false;
             OnLandMarkUnselected?.Invoke();
+        }
+
+
+        private void FollowTarget()
+        {
+            Vector3 desiredPosition = followTarget.position;
+            desiredPosition.y = m_cameraRig.position.y;
+            m_cameraRig.position = desiredPosition;
         }
 
     }
