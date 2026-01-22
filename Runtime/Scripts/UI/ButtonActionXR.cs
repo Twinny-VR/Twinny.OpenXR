@@ -71,6 +71,8 @@ namespace Twinny.UI
                     GameMode.currentMode.RestartExperience();
                     break;
                 case ButtonType.CHANGE_SCENE:
+                    Debug.LogWarning($"DEBUG:[{GetType().Name}] ChangeScene{parameter}");
+
                     GameMode.currentMode.ChangeScene(parameter, landMarkIndex);
                     break;
                 case ButtonType.NAVIGATION:

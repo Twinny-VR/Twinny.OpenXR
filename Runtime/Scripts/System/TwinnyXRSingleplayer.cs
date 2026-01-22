@@ -33,12 +33,13 @@ namespace Twinny.XR
 
         public async Task<Scene> ChangeScene(int buildIndex, int landMarkIndex = -1, Action<float> onSceneLoading = null)
         {
-
             string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(buildIndex));
             return await ChangeScene(sceneName, landMarkIndex, onSceneLoading);
         }
         public async Task<Scene> ChangeScene(string sceneName, int landMarkIndex = -1, Action<float> onSceneLoading = null)
         {
+            Debug.LogWarning($"DEBUG:[GameMode] ChangeScene{sceneName}");
+            Debug.LogWarning($"[GameMode] Change scene to {sceneName}");
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
 
             SceneFeatureXR.Instance?.TeleportToLandMark(0);

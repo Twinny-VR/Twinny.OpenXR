@@ -81,6 +81,7 @@ namespace Twinny.XR
         // Start is called before the first frame update
         protected override void Start()
         {
+            Debug.LogWarning($"[SceneFeature] {gameObject.scene.name} Started");
             base.Start();
             PassthroughFader.TogglePassthroughAction(sceneType == SceneType.MR, 100f);
 
@@ -186,7 +187,7 @@ namespace Twinny.XR
 
                 worldTransform.position = m_anchorStartPosition;
                 worldTransform.localPosition = Vector3.zero;
-                worldTransform.rotation = AnchorManager.rotation;
+                worldTransform.rotation = GetYawRotation(AnchorManager.rotation);
                 worldTransform.localRotation = Quaternion.identity;
                 Vector3 nodeLocalPos = worldTransform.parent.InverseTransformPoint(node.transform.position);
                 //Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
@@ -226,7 +227,7 @@ namespace Twinny.XR
                 if (worldTransform != null)
                 {
                     worldTransform.position = AnchorManager.Instance.transform.position;
-                    worldTransform.rotation = AnchorManager.Instance.transform.rotation;
+                    worldTransform.rotation = GetYawRotation(AnchorManager.rotation);
                 }
             }
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleportToLandMark(landMarkIndex));
@@ -426,11 +427,17 @@ namespace Twinny.XR
         {
             UndockScene();
             transform.position = AnchorManager.position;
-            transform.rotation = AnchorManager.rotation;
+            transform.rotation = GetYawRotation(AnchorManager.rotation);
             // if (sceneType == SceneType.VR && GameMode.currentMode is TwinnyXRSingleplayer) return;
 #if !UNITY_EDITOR
              DockScene();
 #endif
+        }
+
+        public Quaternion GetYawRotation(Quaternion rotation)
+        {
+            float yaw = rotation.eulerAngles.y;
+            return Quaternion.Euler(0f, yaw, 0f);
         }
 
         public void DockScene()

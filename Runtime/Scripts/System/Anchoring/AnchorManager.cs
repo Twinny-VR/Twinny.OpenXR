@@ -30,6 +30,7 @@ namespace Twinny.XR.Anchoring
         private Transform _transform;
         #endregion
 
+
         public static Vector3 position { get => Instance._transform.position; }
         public static Quaternion rotation { get => Instance._transform.rotation; }
 
@@ -78,7 +79,7 @@ namespace Twinny.XR.Anchoring
                 {
                     RemoveColocation();
                     _transform.SetParent(null);
-                    _spatialAnchorCore.EraseAllAnchors();
+                    EraseAllAnchors();
 
 
 
@@ -205,16 +206,29 @@ namespace Twinny.XR.Anchoring
         /// <summary>
         /// Creates an anchor from SafeArea transform 
         /// </summary>
-        public static void CreateAnchor()
+        public static async void CreateAnchor()
         {
             SharedSpatialAnchorCore core = new SharedSpatialAnchorCore();
             Instance.transform.SetParent(null);
-            Instance._spatialAnchorCore.EraseAllAnchors();
+            EraseAllAnchors();
+
+            while (currentAnchor != null)
+            {
+                Debug.LogWarning($"[AnchorManager] ERASING ANCHORS...");
+                await Task.Yield();
+            }
+
             Vector3 desiredPosition = Instance._transform.position;
             desiredPosition.y = 0;
             Instance._spatialAnchorSpawner.SpawnSpatialAnchor(desiredPosition, Instance._transform.rotation);
 
         }
+
+        public static void EraseAllAnchors()
+        {
+            Instance._spatialAnchorCore.EraseAllAnchors();
+        }
+
 
         public async static void Recolocation()
         {
@@ -302,7 +316,7 @@ namespace Twinny.XR.Anchoring
             }
             OVRSpatialAnchor anchor = loadedAnchors[loadedAnchors.Count -1];
             await anchor.WhenLocalizedAsync();
-            Debug.LogWarning($"[{nameof(AnchorManager)}] ({loadedAnchors.Count}) Anchors loaded successfully! POS: ({anchor.transform.position}) ROT: ({anchor.transform.eulerAngles})");
+            Debug.LogWarning($"[{GetType().Name}] ({loadedAnchors.Count}) Anchors loaded successfully! POS: ({anchor.transform.position}) ROT: ({anchor.transform.eulerAngles})");
 
 
 
@@ -391,8 +405,6 @@ namespace Twinny.XR.Anchoring
         {
             _currentAnchor = anchor;
             Debug.LogWarning($"[{nameof(AnchorManager)}] All anchors erased! ({anchor == null})");
-
-
         }
 
         /// <summary>
