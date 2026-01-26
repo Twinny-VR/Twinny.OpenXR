@@ -72,9 +72,9 @@ namespace Twinny.XR
             _transform = transform;
             if (OVRManager.display != null)
             {
-                OVRManager.TrackingAcquired += OnRecenterDetected;
-                OVRManager.InputFocusAcquired += OnRecenterDetected;
-                OVRManager.display.RecenteredPose += OnRecenterDetected;
+                OVRManager.InputFocusLost += OnInputFocusLost;
+                OVRManager.TrackingAcquired += OnTrackingAcquired;
+                //OVRManager.display.RecenteredPose += OnRecenterDetected2;
             }
         }
         private Vector3 m_anchorStartPosition;
@@ -105,8 +105,7 @@ namespace Twinny.XR
             }
 
 
-            if (OVRManager.display != null)
-                OVRManager.display.RecenteredPose += OnRecenterDetected;
+            //if (OVRManager.display != null) OVRManager.display.RecenteredPose += OnRecenterDetected;
 
             //if (extensionMenu) CallbackHub.CallAction<IUICallBacks>(callback => callback.OnLoadExtensionMenu(extensionMenu, isMenuStatic));
 
@@ -148,9 +147,9 @@ namespace Twinny.XR
 
             if (OVRManager.display != null)
             {
-                OVRManager.TrackingAcquired -= OnRecenterDetected;
-                OVRManager.InputFocusAcquired -= OnRecenterDetected;
-                OVRManager.display.RecenteredPose -= OnRecenterDetected;
+                OVRManager.TrackingAcquired -= OnTrackingAcquired;
+                OVRManager.InputFocusLost -= OnInputFocusLost;
+               // OVRManager.display.RecenteredPose -= OnRecenterDetected2;
             }
             /*
             if (NetworkedLevelManager.Instance.currentLandMark < 0
@@ -296,9 +295,73 @@ namespace Twinny.XR
             return -1;
         }
 
-        public void OnRecenterDetected()
+
+        Vector3 _worldLocalPosToRig;
+        Quaternion _worldLocalRotToRig;
+        bool _hasRigSnapshot;
+
+
+        public void OnInputFocusLost()
         {
-            AnchorScene();
+            _ = CanvasTransition.FadeScreenAsync(
+                true,
+                TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime
+            );
+
+            Transform anchor = AnchorManager.Instance.transform;
+            Transform world = worldTransform;
+
+            // posição relativa ao rig
+            _worldLocalPosToRig = anchor.InverseTransformPoint(world.position);
+
+            // rotação relativa ao rig
+            _worldLocalRotToRig = Quaternion.Inverse(anchor.rotation) * world.rotation;
+
+            _hasRigSnapshot = true;
+
+            Debug.LogWarning("[SceneFeature] Snapshot salvo: World relativo ao CameraRig");
+        }
+
+
+        public async void OnTrackingAcquired()
+        {
+            await Task.Delay(500);
+            _ = CanvasTransition.FadeScreenAsync(false, 1.5f);
+
+            UndockScene();
+
+            transform.rotation = GetForwardDirection(AnchorManager.rotation);
+
+            Transform anchor = AnchorManager.Instance.transform;
+            Transform world = worldTransform;
+
+            // restaura posição no espaço atual do rig
+            world.position = anchor.TransformPoint(_worldLocalPosToRig);
+
+            // restaura rotação relativa ao rig
+            world.rotation = anchor.rotation * _worldLocalRotToRig;
+
+#if !UNITY_EDITOR
+    DockScene();
+#endif
+
+            RecenterSkyBox();
+
+            Debug.LogWarning("[SceneFeature] Snapshot restaurado com sucesso: " + _hasRigSnapshot);
+        }
+
+
+
+        public async void OnTrackingAcquired2()
+        {
+            await CanvasTransition.FadeScreenAsync(false, 1.5f, 1f);
+            UndockScene();
+            transform.rotation = GetForwardDirection(AnchorManager.rotation);
+            //transform.position = AnchorManager.position;
+            // if (sceneType == SceneType.VR && GameMode.currentMode is TwinnyXRSingleplayer) return;
+#if !UNITY_EDITOR
+             DockScene();
+#endif
             RecenterSkyBox();
         }
 
@@ -426,12 +489,19 @@ namespace Twinny.XR
         public void AnchorScene()
         {
             UndockScene();
+            transform.rotation = GetForwardDirection(AnchorManager.rotation);
             transform.position = AnchorManager.position;
-            transform.rotation = GetYawRotation(AnchorManager.rotation);
             // if (sceneType == SceneType.VR && GameMode.currentMode is TwinnyXRSingleplayer) return;
 #if !UNITY_EDITOR
              DockScene();
 #endif
+        }
+
+        public Quaternion GetForwardDirection(Quaternion rotation)
+        {
+            Vector3 forward = rotation * Vector3.forward; // Pega a direção que o Anchor olha
+            forward.y = 0; // Mata a inclinação vertical
+            return Quaternion.LookRotation(forward); // Cria a rotação baseada nesse vetor "plano"
         }
 
         public Quaternion GetYawRotation(Quaternion rotation)
