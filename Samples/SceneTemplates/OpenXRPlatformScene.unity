@@ -5737,7 +5737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &180018139
 Transform:
   m_ObjectHideFlags: 0
@@ -17889,27 +17889,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 70.7617
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8976636746883770495, guid: 39433684f93e09445bcf3b87d555fab4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -35.38085
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32694,6 +32694,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1086451585491806663, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2962587743503104404, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
+      propertyPath: _interactableFilters.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2962587743503104408, guid: 7554c31b8982af447ace36d015744ef2, type: 3}
@@ -56642,7 +56646,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Twinny.OpenXR::Twinny.XR.TwinnyXRManager
   m_cameraRig: {fileID: 399326595}
-  m_locomotor: {fileID: 2105597147}
 --- !u!114 &1985820510
 MonoBehaviour:
   m_ObjectHideFlags: 0

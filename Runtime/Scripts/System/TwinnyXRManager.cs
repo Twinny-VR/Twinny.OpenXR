@@ -16,18 +16,10 @@ namespace Twinny.XR
         public static Transform headTransform => Camera.main?.transform;
 
 
-
-        [SerializeField]
-        private PlayerLocomotor m_locomotor;
-        public static PlayerLocomotor locomotor { get; private set; }
-
-
         private void Awake()
         {
             if (cameraRig == null) cameraRig = FindAnyObjectByType<OVRCameraRig>();
 
-            if (m_locomotor == null) m_locomotor = FindAnyObjectByType<PlayerLocomotor>();
-            locomotor = m_locomotor;
         }
 
         private void Start()
@@ -36,7 +28,6 @@ namespace Twinny.XR
             }
         private void OnDestroy()
         {
-                locomotor = null;
         }
         public void Initialize()
             {

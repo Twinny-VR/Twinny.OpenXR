@@ -54,6 +54,7 @@ namespace Twinny.UI
         private Vector3 _previousCameraPos;
 
         #endregion
+        private Transform m_cameraRig;
         private Transform _mainCameraTransform;
         #region Delegates
 
@@ -82,6 +83,7 @@ namespace Twinny.UI
         //Awake is called before the script is started
         private void Awake()
         {
+            m_cameraRig = FindAnyObjectByType<OVRCameraRig>().transform;
         }
 
         // Start is called before the first frame update
@@ -247,7 +249,7 @@ namespace Twinny.UI
                 }
             }
             Vector3 desiredPosition = _mainCameraTransform.position;
-            desiredPosition.y = 0f;
+            desiredPosition.y = m_cameraRig.position.y;
 
             tracer.position = desiredPosition;
         }
@@ -464,15 +466,7 @@ namespace Twinny.UI
         }
 
         public void OnStartTeleport() { }
-        public void OnTeleport()
-        {
-            Transform rig = FindAnyObjectByType<OVRCameraRig>().transform;
-            var newPos = rig.position;
-            newPos.y = 0;
-            rig.position = newPos;
-
-           // Debug.LogWarning($"[HUDManagerXR] RIG:{rig.position} CanvasRoot:{_canvasRoot.position}");
-        }
+        public void OnTeleport() { }
 
         public void OnSkyboxHDRIChanged(Material material) { }
 
