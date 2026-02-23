@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Concept.Core;
+using TWE26.OpenXR.Input;
 using Twinny.Core;
 using Twinny.UI;
 using UnityEngine;
@@ -114,7 +115,7 @@ namespace Twinny.XR
 
         public async void RestartExperience()
         {
-            GestureMonitor.SetHandForwardGestureRight(false);
+            XRGestureProvider.SetHandForwardGestureRight(false);
 
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
             PassthroughFader.TogglePassthroughAction(true, 100f);
@@ -124,7 +125,7 @@ namespace Twinny.XR
 
         public void Quit()
         {
-            GestureMonitor.SetHandForwardGestureRight(false);
+            XRGestureProvider.SetHandForwardGestureRight(false);
         }
     }
 }

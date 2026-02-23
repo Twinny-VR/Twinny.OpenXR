@@ -9,6 +9,7 @@ using Concept.Helpers;
 using Twinny.Core;
 using Concept.Core;
 using System.Linq;
+using TWE26.OpenXR.Input;
 
 namespace Twinny.XR.Anchoring
 {
@@ -145,8 +146,8 @@ namespace Twinny.XR.Anchoring
             _spatialAnchorCore.OnAnchorCreateCompleted.AddListener(OnAnchorCreateCompleted);
             _spatialAnchorCore.OnAnchorEraseCompleted.AddListener(OnAnchorEraseCompleted);
             //Set callbacks delegates
-            GestureMonitor.OnPinchLeftEvent.AddListener(OnPinchLeft);
-            GestureMonitor.OnPinchRightEvent.AddListener(OnPinchRight);
+            XRGestureProvider.Instance.OnPinchLeftEvent.AddListener(OnPinchLeft);
+            XRGestureProvider.Instance.OnPinchRightEvent.AddListener(OnPinchRight);
 
             _spatialAnchorLoader.LoadAnchorsFromDefaultLocalStorage();
 
@@ -440,9 +441,9 @@ namespace Twinny.XR.Anchoring
         /// <summary>
         /// This Method is a callback from GestureMonitor Hand Left Pinch Action
         /// </summary>
-        private void OnPinchLeft()
+        private void OnPinchLeft(bool status)
         {
-            if (!_usePinchToAnchor || _state != StateAnchorManager.ANCHORED) return;
+            if (status || !_usePinchToAnchor || _state != StateAnchorManager.ANCHORED) return;
             _state = StateAnchorManager.ANCHORING;
         }
 
@@ -450,9 +451,9 @@ namespace Twinny.XR.Anchoring
         /// <summary>
         /// This Method is a callback from GestureMonitor Hand Right Pinch Action
         /// </summary>
-        private void OnPinchRight()
+        private void OnPinchRight(bool status)
         {
-            if (!_usePinchToAnchor || _state != StateAnchorManager.ANCHORING) return;
+            if (status || !_usePinchToAnchor || _state != StateAnchorManager.ANCHORING) return;
            // CreateAnchor();
 
         }

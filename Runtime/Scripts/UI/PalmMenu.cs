@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using TWE26.OpenXR.Input;
 using UnityEngine;
 
 namespace Twinny.XR
@@ -16,13 +17,13 @@ namespace Twinny.XR
         {
             m_eventWrapper = GetComponent<SelectorUnityEventWrapper>();
             m_eventWrapper.WhenUnselected.AddListener(HideMenu);
-            GestureMonitor.OnMenuPressedEvent.AddListener(m_isToggle? ToggleMenu : ShowMenu);
+            XRGestureProvider.Instance.OnMenuPressedEvent.AddListener(m_isToggle? ToggleMenu : ShowMenu);
         }
 
         private void OnDisable()
         {
             m_eventWrapper.WhenUnselected.RemoveListener(HideMenu);
-            GestureMonitor.OnMenuPressedEvent.RemoveListener(m_isToggle ? ToggleMenu : ShowMenu);
+            XRGestureProvider.Instance.OnMenuPressedEvent.RemoveListener(m_isToggle ? ToggleMenu : ShowMenu);
         }
 
         private void Start()

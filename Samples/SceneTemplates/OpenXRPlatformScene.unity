@@ -59495,7 +59495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2097716531}
-  - component: {fileID: 2097716532}
+  - component: {fileID: 2097716533}
   m_Layer: 0
   m_Name: '[Twinny] Gesture Monitor'
   m_TagString: Untagged
@@ -59518,7 +59518,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2097716532
+--- !u!114 &2097716533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59527,21 +59527,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 2097716530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbbb83d5259bb64e93990104beafcc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 04482cb37395ba445b28d8450d46cd46, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Twinny.OpenXR::Twinny.XR.GestureMonitor
+  m_EditorClassIdentifier: Twinny.OpenXR::Twinny.XR.XRGestureProvider
   _dontDestroyOnLoad: 0
   _firstInstancePersistent: 0
   _keepAllInstances: 0
-  _handGrabInteractorLeft: {fileID: 24347500}
-  _handGrabInteractorRight: {fileID: 756999634}
-  _traceInteractables: 0
-  _closeUpTime: 1
-  _rayDistance: 10
-  _interactableLayer:
+  m_handGrabInteractorLeft: {fileID: 24347500}
+  m_handGrabInteractorRight: {fileID: 756999634}
+  m_traceInteractables: 0
+  m_closeUpTime: 1
+  m_rayDistance: 10
+  m_interactableLayer:
     serializedVersion: 2
     m_Bits: 8
   m_handForwardGestureRight: {fileID: 1078263087}
+  OnPinchLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPinchRightEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGrabEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTeleportEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMenuPressedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTargetFocusEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2097989120
 GameObject:
   m_ObjectHideFlags: 0

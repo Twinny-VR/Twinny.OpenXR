@@ -1,3 +1,4 @@
+#if false
 using System.Collections.Generic;
 using Concept.Core;
 using Concept.Helpers;
@@ -77,7 +78,6 @@ namespace Twinny.XR
         {
             base.Update();
 
-            if (_traceInteractables) TraceInteractables();
 
             if (!_leftHand || !_rightHand) return;
 
@@ -93,6 +93,7 @@ namespace Twinny.XR
                 OnMenuPressedEvent?.Invoke();
 
             OnGrabbingEvent?.Invoke(_handGrabInteractorLeft.IsGrabbing || _handGrabInteractorRight.IsGrabbing);
+            if (_traceInteractables) TraceInteractables();
         }
         #endregion
 
@@ -301,3 +302,5 @@ namespace Twinny.XR
     }
 
 }
+
+#endif

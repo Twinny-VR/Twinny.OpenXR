@@ -7,10 +7,20 @@ using Twinny.UI;
 using Twinny.XR.Anchoring;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TWE26.OpenXR.Input;
+using System;
 
 namespace Twinny.XR
 {
-
+    /// <summary>
+    /// Scene layout type VR(Virtual), MR(Mixed), MOBILE(Mobile)
+    /// </summary>
+    [Serializable]
+    public enum SceneType
+    {
+        VR, //Virtual Reallity
+        MR //Mixed Reallity
+    }
 
     public class SceneFeatureXR : SceneFeature, ITwinnyXRCallbacks
     {
@@ -112,7 +122,7 @@ namespace Twinny.XR
 
             int layer = LayerMask.NameToLayer("Character");
 
-            GestureMonitor.SetHandForwardGestureRight(sceneType == SceneType.VR);
+            XRGestureProvider.SetHandForwardGestureRight(sceneType == SceneType.VR);
             if (layer == -1) return;
 
 

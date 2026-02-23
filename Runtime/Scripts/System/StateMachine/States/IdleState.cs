@@ -9,20 +9,11 @@ namespace Twinny.XR
         private TwinnyXRManager m_manager;
         public IdleState(TwinnyXRManager managerOwner) => m_manager = managerOwner;
 
-        public void Enter()
-        {
-            SetGameMode();
-        }
+        public void Enter() => SetGameMode();
 
-        public void Exit()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Exit() { }
 
-        public void Update()
-        {
-        }
-
+        public void Update() { }
 
         private void SetGameMode()
         {
