@@ -240,6 +240,9 @@ namespace Twinny.XR
                     worldTransform.position = AnchorManager.Instance.transform.position;
                     worldTransform.rotation = GetYawRotation(AnchorManager.rotation);
                 }
+
+                // Reset baseline so future landmark teleports start from a clean tracking state.
+                m_anchorStartPosition = AnchorManager.position;
             }
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnTeleportToLandMark(landMarkIndex));
 

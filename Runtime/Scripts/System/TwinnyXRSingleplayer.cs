@@ -120,6 +120,7 @@ namespace Twinny.XR
 
             await CanvasTransition.FadeScreenAsync(true, TwinnyRuntime.GetInstance<TwinnyXRRuntime>().fadeTime);
             PassthroughFader.TogglePassthroughAction(true, 100f);
+            SceneFeatureXR.Instance?.TeleportToLandMark(-1);
             await UnloadAdditivesScenes();
             await StartExperience(1,-1);
         }
