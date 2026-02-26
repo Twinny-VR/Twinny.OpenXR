@@ -83,6 +83,7 @@ namespace Twinny.XR
             if (OVRManager.display != null)
             {
                 OVRManager.InputFocusLost += OnInputFocusLost;
+                OVRManager.InputFocusAcquired += OnInputFocusAcquired;
                 OVRManager.TrackingAcquired += OnTrackingAcquired;
                 //OVRManager.display.RecenteredPose += OnRecenterDetected2;
             }
@@ -159,6 +160,7 @@ namespace Twinny.XR
             {
                 OVRManager.TrackingAcquired -= OnTrackingAcquired;
                 OVRManager.InputFocusLost -= OnInputFocusLost;
+                OVRManager.InputFocusAcquired -= OnInputFocusAcquired;
                // OVRManager.display.RecenteredPose -= OnRecenterDetected2;
             }
             /*
@@ -330,6 +332,11 @@ namespace Twinny.XR
             _hasRigSnapshot = true;
 
             Debug.LogWarning("[SceneFeature] Snapshot salvo: World relativo ao CameraRig");
+        }
+        public async void OnInputFocusAcquired()
+        {
+            await Task.Delay(500);
+            _ = CanvasTransition.FadeScreenAsync(false, 1.5f);
         }
 
 

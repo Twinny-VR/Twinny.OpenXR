@@ -1,19 +1,16 @@
 {
   "name": "com.twinny.openxr",
   "displayName": "Twinny OpenXR",
-  "version": "26.0.26",
+  "version": "26.0.27",
   "type": "tool",
   "unity": "6000.0",
   "unityRelease": "43f1",
   "description": "A OpenXR module for Twinny Engine.\n\nhttps://github.com/Twinny-VR/Twinny.OpenXR.git",
-  "documentationUrl": "",
-  "changelogUrl": "",
-  "licensesUrl": "",
   "keywords": [],
   "author": {
     "name": "Twinny Vr",
-    "email": "conceptfac@gmail.com",
-    "url": "https://twinnyvr.co/"
+    "url": "https://twinnyvr.co/",
+    "email": "conceptfac@gmail.com"
   },
   "repository": {
     "type": "git",

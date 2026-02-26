@@ -48,8 +48,8 @@ namespace Twinny.XR
             if (SceneManager.sceneCount > 1)
                 await UnloadAdditivesScenes();
 
-
             CallbackHub.CallAction<ITwinnyXRCallbacks>(callback => callback.OnSceneLoadStart(sceneName));
+            Twinny.UI.AlertViewHUD.PostMessage("CARREGANDO...", Twinny.UI.AlertViewHUD.MessageType.Info, 100);
             AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!async.isDone)
             {
@@ -60,6 +60,7 @@ namespace Twinny.XR
             SceneFeatureXR.Instance?.TeleportToLandMark(landMarkIndex);
             Scene newScene = SceneManager.GetSceneByName(sceneName);
 
+            Twinny.UI.AlertViewHUD.CancelMessage();
             if (!newScene.IsValid())
             {
                 Debug.LogError($"[TwinnyXRSingleplayer] Invalid '{sceneName}' scene name!");
