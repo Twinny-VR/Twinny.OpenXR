@@ -204,7 +204,6 @@ namespace Twinny.XR
                 //Vector3 desiredPosition = -(worldTransform.localRotation * nodeLocalPos);
                 Vector3 trackingDeltaLocal = Vector3.zero;
                 bool trackingDirty = (AnchorManager.position - m_anchorStartPosition).sqrMagnitude > 0.0001f;
-
                 if (trackingDirty)
                 {
                     Vector3 trackingDeltaWorld = AnchorManager.position - m_anchorStartPosition;
@@ -240,6 +239,10 @@ namespace Twinny.XR
                     worldTransform.position = AnchorManager.Instance.transform.position;
                     worldTransform.rotation = GetYawRotation(AnchorManager.rotation);
                 }
+
+                // On reset/restart, also clear locomotion rig drift before next scene/landmark teleport.
+                cameraRig.position = Vector3.zero;
+                cameraRig.rotation = Quaternion.identity;
 
                 // Reset baseline so future landmark teleports start from a clean tracking state.
                 m_anchorStartPosition = AnchorManager.position;
