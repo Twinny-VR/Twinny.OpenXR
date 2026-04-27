@@ -18,7 +18,7 @@ namespace Twinny.UI
         public string displayText { get => _displayText; set => _displayText = value;  }
 
         [SerializeField] private bool _showInfo = false;
-        public bool showInfo { get => _showInfo; set { if (TwinnyRuntime.GetInstance<TwinnyXRRuntime>().ambientType == BuildType.RELEASE) return;  _showInfo = value; _debugInfo.SetActive(value); }
+        public bool showInfo { get => _showInfo; set { if (TwinnyRuntime.GetInstance<TwinnyXRRuntime>().buildType == BuildType.RELEASE) return;  _showInfo = value; _debugInfo.SetActive(value); }
         }
         [SerializeField] private GameObject _debugInfo;
         [SerializeField] private TextMeshProUGUI TMP_Info;
@@ -41,7 +41,7 @@ namespace Twinny.UI
                 return;
             } 
 #endif
-            SetDebugVisual(TwinnyRuntime.GetInstance<TwinnyXRRuntime>().ambientType != BuildType.RELEASE);
+            SetDebugVisual(TwinnyRuntime.GetInstance<TwinnyXRRuntime>().buildType != BuildType.RELEASE);
         }
 
         // Update is called once per frame
